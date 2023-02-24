@@ -1,0 +1,112 @@
+.banner{
+    background-image: url("../assets/images/aboutus.jpg");
+    background-size: cover;
+    position: relative;
+}
+.banner h1{
+    padding: 20% 10%;
+    text-align: center;
+    color: #fff;
+    font-size: 55px;
+    line-height: 75px;
+    position: relative;
+    z-index: 2;
+}
+.who_we_are{
+    display: flex;
+    flex-wrap: wrap;
+}
+.who_we_content{
+    flex-basis: 50%;
+    padding: 60px;
+}
+.who_we_content h2{
+    font-size: 45px;
+    position: relative;
+    padding: 30px 0px;
+}
+.who_we_content h2::before{
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 101px;
+    background-color: #0084d6;
+    top: -5px;
+}
+.who_we_content p{
+    font-size: 16px;
+    line-height: 36px;
+}
+.who_we_image{
+    flex-basis: 50%;
+    padding: 60px;
+}
+.who_we_image img{
+    width: 100%;
+    height: 332px;
+}
+.our_team{
+    text-align: center;
+    padding: 100px 0;
+}
+.our_team_heading h4{
+    font-size: 20px;
+    display: block;
+    position: relative;
+}
+.our_team_heading h2{
+    font-size: 42px;
+    padding: 20px 0px;
+}
+.our_team_heading p{
+    padding: 0% 14%;
+    line-height: 26px;;
+}
+.profile_cards_group{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0% 14%;
+    justify-content: center;
+}
+.profile_card{
+    flex-basis: 30%;
+    background-color: #f5f7f9;
+    margin: 10px;
+    padding: 30px;
+}
+.profile_card p{
+    color: #33333f;
+    line-height: 25px;
+}
+.profile_card h4{
+    font-size: 1.25rem;
+    line-height: 2.2rem;
+}
+.follow_us_section{
+    background-image: url("../assets/images/follow_us.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.follow_us{
+    text-align: center;
+    width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 140px 20px;
+}
+.follow_us h2{
+    font-size: 42px;
+    position: relative;
+}
+
+.follow_us_icons ul{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 38px 0px;
+}
+.follow_us_icons ul li{
+    padding: 0px 20px;
+}
