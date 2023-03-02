@@ -1,9 +1,14 @@
-const { configureStore } = require("@reduxjs/toolkit");
-const { default: productSlice } = require("./productSlice");
+import { configureStore } from "@reduxjs/toolkit";
+import authSlice from "./authSlice";
+import authUserSlice from "./authUserSlice";
+import productSlice from "./productSlice";
+
 
 const store = configureStore({
     reducer:{
-        product : productSlice
+        product : productSlice,
+        auth : authSlice,
+        authUser : authUserSlice
     },
     middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

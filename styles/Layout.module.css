@@ -1,0 +1,9 @@
+.page_layout{
+    display: flex;
+}
+.layout_sidebar{
+    flex-basis: 25%;
+}
+.layout_content{
+    flex-basis: 75%;
+}

@@ -1,11 +1,25 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Cart from "../cart";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(false);
+  const [showCart , setShowCart] = useState(false);
+  const adminToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
+  const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+  if (!hydrated) {
+    return null;
+  }
   const showDrop = () => {
     setDropdown(!dropdown);
   };
+  const cartShow = () =>{
+    setShowCart(!showCart)
+  }
   return (
     <>
       <div className="header">
@@ -22,10 +36,13 @@ const Header = () => {
                   <Link href="#">Everything</Link>
                 </li>
                 <li>
-                  <Link href="#">women</Link>
+                  <Link href="/women">women</Link>
                 </li>
                 <li>
                   <Link href="#">men</Link>
+                </li>
+                <li>
+                  <Link href="#">Accessories</Link>
                 </li>
               </ul>
             </div>
@@ -38,14 +55,23 @@ const Header = () => {
               <li>
                 <Link href="/contactus">Contact Us</Link>
               </li>
-              <li>
+              <li style={{position:"relative"}} onClick={cartShow}>
                 <Link href="#">
-                  <i class="fa fa-shopping-cart"></i>
+                  <i className="fa fa-shopping-cart"></i>
                 </Link>
+                {
+                  showCart ? (<>
+                  <div className="cart_wr">
+                  <Cart />
+                  </div>
+                  </>) : ""
+                }
               </li>
-              <li className="drop_down" onClick={showDrop}>
-                <Link href="#">
-                  <i class="fa fa-user"></i>
+              {
+                !adminToken && !userToken ? (<>
+                <li className="drop_down" onClick={showDrop}>
+                <Link href="">
+                  <i className="fa fa-user"></i>
                 </Link>
                 {dropdown ? (
                   <>
@@ -62,6 +88,8 @@ const Header = () => {
                   ""
                 )}
               </li>
+                </>) : null 
+              }
             </ul>
           </div>
         </div>

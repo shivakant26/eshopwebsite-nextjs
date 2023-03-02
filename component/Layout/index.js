@@ -1,3 +1,4 @@
+import ProtectedRoutes from "../Routes/protectedRoutes";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -6,7 +7,7 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <div className="page_content">
-      {children}
+        <ProtectedRoutes>{children}</ProtectedRoutes>
       </div>
       <Footer />
     </>

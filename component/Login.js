@@ -1,21 +1,43 @@
+import { adminLogin } from "@/Services/authSlice";
+import { loginUser } from "@/Services/authUserSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import LoadingSpinner from "./Loder";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const slug = router?.pathname?.replace("/", "");
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm();
+  const{error}= useSelector((state)=>state?.auth);
+  const response = useSelector((state)=>state?.auth)
+  const{userError}= useSelector((state)=>state?.authUser)
+
+  const user = useSelector((state)=>state?.authUser?.loginData)
+  console.log(123456,response?.status)
+  const adminToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
+  const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    if(slug === "admin"){
+      dispatch(adminLogin(data))
+    }
+    if(slug === "user"){
+      dispatch(loginUser(data));
+    }
+    reset()
   };
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -24,19 +46,52 @@ const Login = () => {
     }
     setPasswordType("password");
   };
+
+  useEffect(()=>{
+    if(adminToken && response.status === 'success'){
+      toast.success("Login successfully");
+      router.push("/admin/dashboard")
+      setIsLoading(false)
+    }else if(response.status === 'failed'){
+      toast.error(error)
+      setIsLoading(false)
+    }
+  },[adminToken , error])
+
+  useEffect(()=>{
+    if(userToken){
+      toast.success("Login successfully");
+      setIsLoading(false)
+      router.push("/user/dashboard")
+    }else{
+      setIsLoading(false)
+      toast.error(userError)
+    }
+  },[userToken , userError ])
+
+  useEffect(()=>{
+    if(response?.status === "pending"){
+      setIsLoading(true)
+    }
+    else if(response?.status === "success"){
+      setIsLoading(false)
+    }
+  },[response])
   return (
     <>
       <div className="eshop_login_section">
         <div className="center_wr">
-          <div class="eshop_login">
+          {
+            isLoading ? <LoadingSpinner /> :(<>
+               <div className="eshop_login">
             <div className="login_text">
               {slug === "admin" ? (
                 <>
-                  <i class="fa fa-user-circle-o"></i>
+                  <i className="fa fa-user-circle-o"></i>
                 </>
               ) : (
                 <>
-                  <i class="fa fa-sign-out"></i>
+                  <i className="fa fa-sign-out"></i>
                 </>
               )}
               <h4>Welcome {slug === "admin" ? "Admin" : "User"}!</h4>
@@ -48,7 +103,7 @@ const Login = () => {
                   <input
                     type="text"
                     placeholder="email or username"
-                    autocomplete="off"
+                    autoComplete="off"
                     {...register("email", {
                       required: true,
                       pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -65,19 +120,19 @@ const Login = () => {
                   <input
                     type={passwordType}
                     placeholder="password"
-                    autocomplete="off"
+                    autoComplete="off"
                     {...register("password", {
                       required: true,
                     })}
                   />
                   <span className="password_icon">
-                    {passwordType === "password" ? (
+                    {passwordType !== "password" ? (
                       <>
-                        <i onClick={togglePassword} class="fa fa-eye"></i>
+                        <i onClick={togglePassword} className="fa fa-eye"></i>
                       </>
                     ) : (
                       <>
-                        <i onClick={togglePassword} class="fa fa-eye-slash"></i>
+                        <i onClick={togglePassword} className="fa fa-eye-slash"></i>
                       </>
                     )}
                   </span>
@@ -86,7 +141,7 @@ const Login = () => {
                   )}
                 </div>
                 <div className="form_field">
-                  <button className="login_btn" type="submit">
+                  <button className="login_btn" type="submit" disabled={isLoading}>
                     Login
                   </button>
                 </div>
@@ -106,6 +161,9 @@ const Login = () => {
               </div>
             </div>
           </div>
+            </>)
+          }
+          
         </div>
       </div>
     </>

@@ -7,18 +7,23 @@ import WorldWide from "./WorldWide";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "@/Services/productSlice";
+import SalesUpto from "./SalesUpto";
+import { useRouter } from "next/router";
 
 const HomePage = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { product } = useSelector((state) => {
     return {
       product: state?.product?.products,
     };
   });
-  console.log(123456, product);
   useEffect(() => {
     dispatch(getAllProduct());
   }, []);
+  const singleProduct = (id) =>{
+    router.push(`/products/${id}`);
+  }
   return (
     <>
       <div className="banner_section">
@@ -172,16 +177,18 @@ const HomePage = () => {
               <>
                 {product?.map((item, index) => {
                   return (
-                    <div className="feature_card">
-                      <div className="feat_card_image">
-                        <img
-                          src={item?.image}
-                          alt="shoes"
-                        />
+                    <div className="feature_card" key={index}>
+                      <div className="feat_card_image" onClick={()=>singleProduct(item?._id)}>
+                        <img src={item?.image} alt="item_image" />
+                        <div className="shop_icon">
+                          <i className="fa fa-shopping-bag"></i>
+                        </div>
                       </div>
                       <div className="feat_card_content">
                         <h3>{item?.title}</h3>
-                        <span className="product_category">{item.description}</span>
+                        <span className="product_category">
+                          {item.description}
+                        </span>
                         <span className="price">
                           <del>
                             <span className="product_price">$25.00</span>
@@ -189,11 +196,11 @@ const HomePage = () => {
                           <span className="orignal_price">${item?.price}</span>
                         </span>
                         <div className="star_rating">
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
-                          <i class="fa fa-star-o"></i>
+                          <i className="fa fa-star-o"></i>
+                          <i className="fa fa-star-o"></i>
+                          <i className="fa fa-star-o"></i>
+                          <i className="fa fa-star-o"></i>
+                          <i className="fa fa-star-o"></i>
                         </div>
                       </div>
                     </div>
@@ -229,13 +236,7 @@ const HomePage = () => {
       {/* end spcial_edition section */}
       <WorldWide />
       {/* end world_wide_section */}
-      <div className="sale_heading_section">
-        <div className="center_wr">
-          <a href="#">
-            SALE UP TO 70% OFF FOR ALL CLOTHES & FASHION ITEMS, ON ALL BRANDS.
-          </a>
-        </div>
-      </div>
+      <SalesUpto />
       {/* end sale_heading */}
     </>
   );

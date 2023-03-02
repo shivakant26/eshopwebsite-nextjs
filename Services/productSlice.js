@@ -2,12 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./apiConfig";
 
 const initialState = {
-    products:"",
+    products:[],
     status:"",
 };
 
 export const getAllProduct = createAsyncThunk(
-    "crud/getAllProduct",
+    "product/getAllProduct",
     async()=>{
     try{
        const response =  await instance.get("/dashGetProduct")
@@ -19,7 +19,7 @@ export const getAllProduct = createAsyncThunk(
 })
 
 const productSlice = createSlice({
-    name:"crud",
+    name:"product",
     initialState,
     extraReducers:(builder) => {
         builder.addCase(getAllProduct.pending,(state)=>{

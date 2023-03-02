@@ -1,23 +1,41 @@
+import { addNewUser } from "@/Services/authUserSlice";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [passwordType, setPasswordType] = useState("password");
   const [cpasswordType, setCPasswordType] = useState("password");
-
+  const dispatch = useDispatch();
   const router = useRouter();
   const slug = router?.pathname?.replace("/", "");
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm();
+  const { message , status }= useSelector((state)=>{
+    return{
+      message: state?.authUser?.users?.data?.message,
+      status:state?.authUser?.users?.status
+    }
+  })
 
   const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+    dispatch(addNewUser(data))
+    reset();
   };
+
+  useEffect(()=>{
+    if(status === 200){
+      toast.success(message)
+      router.push("/user")
+    }
+  },[status,message])
 
   const togglePassword = () => {
     if (passwordType === "password") {
@@ -38,9 +56,9 @@ const Register = () => {
     <>
       <div className="eshop_login_section">
         <div className="center_wr">
-          <div class="eshop_login">
+          <div className="eshop_login">
             <div className="login_text">
-              <i class="fa fa-user-circle-o"></i>
+              <i className="fa fa-user-circle-o"></i>
               <h4>Create User Account</h4>
               <p>Sign in to your account</p>
             </div>
@@ -49,20 +67,20 @@ const Register = () => {
                 <div className="form_field">
                   <input
                     type="text"
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="firstname"
-                    {...register("firstname", {
+                    {...register("firstName", {
                       required: true,
                     })}
                   />
-                  {errors?.firstname?.type === "required" && (
+                  {errors?.firstName?.type === "required" && (
                     <p className="error">Required*</p>
                   )}
                 </div>
                 <div className="form_field">
                   <input
                     type="text"
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="email"
                     {...register("email", {
                       required: true,
@@ -79,7 +97,7 @@ const Register = () => {
                 <div className="form_field">
                   <input
                     type={passwordType}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="password"
                     {...register("password", {
                       required: true,
@@ -88,11 +106,11 @@ const Register = () => {
                   <span className="password_icon">
                     {passwordType !== "password" ? (
                       <>
-                        <i onClick={togglePassword} class="fa fa-eye"></i>
+                        <i onClick={togglePassword} className="fa fa-eye"></i>
                       </>
                     ) : (
                       <>
-                        <i onClick={togglePassword} class="fa fa-eye-slash"></i>
+                        <i onClick={togglePassword} className="fa fa-eye-slash"></i>
                       </>
                     )}
                   </span>
@@ -103,9 +121,9 @@ const Register = () => {
                 <div className="form_field">
                   <input
                     type={cpasswordType}
-                    autocomplete="off"
+                    autoComplete="off"
                     placeholder="confirm password"
-                    {...register("cpassword", {
+                    {...register("cPassword", {
                       required: true,
                       validate: (val) => {
                         if (watch("password") != val) {
@@ -117,21 +135,21 @@ const Register = () => {
                   <span className="password_icon">
                     {cpasswordType !== "password" ? (
                       <>
-                        <i onClick={ctogglePassword} class="fa fa-eye"></i>
+                        <i onClick={ctogglePassword} className="fa fa-eye"></i>
                       </>
                     ) : (
                       <>
                         <i
                           onClick={ctogglePassword}
-                          class="fa fa-eye-slash"
+                          className="fa fa-eye-slash"
                         ></i>
                       </>
                     )}
                   </span>
-                  {errors?.cpassword?.type === "required" && (
+                  {errors?.cPassword?.type === "required" && (
                     <p className="error">Required*</p>
                   )}
-                  {errors?.cpassword?.type === "validate" && (
+                  {errors?.cPassword?.type === "validate" && (
                     <p className="error">Password Not match</p>
                   )}
                 </div>
