@@ -134,6 +134,7 @@ h2{
 }
 .right_header_content ul{
   justify-content: flex-end;
+  position: relative;
 }
 .show_drop_down{
   display: block;
@@ -144,7 +145,7 @@ h2{
   flex-direction: column;
   right: 8px;
   top: 39px;
-  width: 112px;
+  width: 130px;
   text-align: center;
   border-radius: 5px;
 }
@@ -500,6 +501,8 @@ input[type="text"]:focus , input[type="password"]{
 input[type="text"] , input[type="password"]{
   padding: 15px 12px;
   width: 100%;
+  border: 1px solid #bfb8b8;
+  border-radius: 5px;
 }
 .password_icon{
   position: absolute;
@@ -657,10 +660,10 @@ textarea{
   position: absolute;
     background: #fff;
     height: 68vh;
-    width: 30vw;
-    right: -76px;
+    width: 40vw;
+    right: -38px;
     top:42px;
-    border-radius: 15px;
+    border-radius: 5px;
  }
  /* for loader */
  .spinner-container{
@@ -696,7 +699,7 @@ table tr th{
 table tr td{
   padding: 5px 5px;
 }
-table tr td button{
+table tr td button,.update_btn{
   background: #006a8b;
     border: none;
     width: 89px;
@@ -708,4 +711,19 @@ table tr td button{
 }
 table tr td button:hover{
   background-color: #000;
+}
+/* cart pop up */
+.cart_header{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 33px;
+  border-bottom: 1px solid #d8cfcf;
+}
+.cart_close_btn{
+  cursor: pointer;
+}
+.current_user{
+  padding: 11px 13px;
+    background: #03495e;
+    border-radius: 22px;
 }

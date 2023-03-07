@@ -1,10 +1,11 @@
 import SalesUpto from "@/component/SalesUpto";
-import { getAllProduct } from "@/Services/productSlice";
+import { addToCart, getAllProduct } from "@/Services/productSlice";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Styles from "../../styles/Product.module.css";
 
 const SingleProduct = () => {
@@ -16,13 +17,28 @@ const SingleProduct = () => {
   } = useForm();
   const router = useRouter();
   const id = router?.query?.id;
+  const [quantity , setQunatity] = useState();
   const dispatch = useDispatch();
-  const { product } = useSelector((state) => {
+  const { products , error } = useSelector((state) => {
     return {
-      product: state?.product?.products,
+      products: state?.productSlice?.products,
+      error : state?.productSlice?.error
     };
   });
+const cartpro = useSelector((state)=>state?.product?.additem)
+console.log(123456,products)
 
+var userToken = typeof window!=="undefined" ?  localStorage.getItem("userToken"):null;
+
+useEffect(() => {
+ console.log(userToken)
+}, [userToken]);
+
+useEffect(()=>{
+  if(error){
+    toast.error(error)
+  }
+},[error])
   useEffect(() => {
     dispatch(getAllProduct());
   }, [id]);
@@ -35,6 +51,7 @@ const SingleProduct = () => {
     document.getElementById(id2btn).style.borderTop = "2px solid #fff";
     document.getElementById(id3btn).style.borderTop = "2px solid #fff";
   };
+
   useEffect(() => {
     block("London", "Paris", "Tokyo", "Londonbtn", "Parisbtn", "Tokyobtn");
   }, []);
@@ -57,11 +74,15 @@ const SingleProduct = () => {
   const onSubmit = (data) => {
     // console.log(data)
   };
+  const addproduct = (itemId)=>{
+    let object = {itemId,quantity}
+    dispatch(addToCart(object))
+  }
   return (
     <>
       <div className={Styles.single_product_section}>
         <div className="center_wr">
-          {product
+          {products?.length > 0 && products
             ?.filter((el) => {
               if (el._id === id) {
                 return el;
@@ -98,14 +119,17 @@ const SingleProduct = () => {
                       </p>
                       <div className={Styles.quantity_and_cart}>
                         <span>
-                          <select>
+                          <select 
+                            onChange={(e)=>setQunatity(e.target.value)}
+                          >
+                            <option value="none">none</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                           </select>
                         </span>
                         <span>
-                          <button>add to cart</button>
+                          <button onClick={()=>addproduct(item._id)}>add to cart</button>
                         </span>
                       </div>
                       <hr />

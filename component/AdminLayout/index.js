@@ -1,15 +1,13 @@
-import React from 'react'
-import Link from "next/link";
-import { useRouter } from "next/router";
-import Styles from "../../../styles/Admin.module.css";
-import AdminSidebar from './AdminSidebar';
+import React from 'react';
+import Styles from "../../styles/Admin.module.css";
+import Sidebar from './AdminSidebar';
 
 const AdminLayout = ({children}) => {
   return (
     <>
     <div className={Styles.admin_dashboard}>
           <div className={Styles.left_sidebar}>
-          <AdminSidebar />
+          <Sidebar />
           </div>
           <div className={Styles.admin_content}>
             {children}

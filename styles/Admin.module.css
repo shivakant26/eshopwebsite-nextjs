@@ -1,9 +1,49 @@
+/* admin Dashbord Index */
+.dashboard_pg_wr{
+    padding: 20px;
+}
+.dashboard_card_group{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+.dashboard_card{
+    flex-basis: 24%;
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #00698d;
+}
+.dashboard_card h3{
+    font-size: 20px;
+    line-height: 33px;
+    text-shadow: 0px 0px 6px rgba(0,0,0,0.9) 
+}
+.dashboard_card h4{
+    font-size: 35px;
+    line-height: 45px;
+}
+.chart_section{
+    display: flex;
+    padding: 40px 0px;
+}
+.chart_rep{
+    flex-basis: 30%;
+    height: 400px;
+}
+.active_table{
+    flex-basis: 70%;
+}
+
+
+/* others */
 .admin_dashboard{
     display: flex;
 }
 .left_sidebar{
     flex-basis: 20%;
-    height: 40vh;
     box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
 }
 .admin_content{

@@ -2,10 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./apiConfig";
 
 const initialState = {
+    loading:false,
     users:[],
     loginData:[],
-    allUsers:[],
+    userProfile:[],
     status:"",
+    error : ""
 };
 
 export const addNewUser = createAsyncThunk(
@@ -25,7 +27,23 @@ export const loginUser = createAsyncThunk(
     async(data,{rejectWithValue})=>{   
     try{
        const response =  await instance.post("/login",data)
-       return response;
+       if(response.status === 200){
+           return response;
+       }
+    }
+    catch(error){
+        return rejectWithValue(error?.response?.data);
+    }    
+})
+
+export const getUserProfile = createAsyncThunk(
+    "authUser/getUserProfile",
+    async(_,{rejectWithValue})=>{   
+    try{
+       const response =  await instance.get("/getUserProfile")
+       if(response.status === 200){
+           return response;
+       }
     }
     catch(error){
         return rejectWithValue(error?.response?.data);
@@ -49,16 +67,28 @@ const authUserSlice = createSlice({
             state.error = err.payload.error;
         })
         .addCase(loginUser.pending,(state)=>{
-            state.status = "pending";
+            state.loading = true;
         })
         .addCase(loginUser.fulfilled,(state,action)=>{
-            state.status = "success";
-            state.admin = action?.payload?.data;
+            state.loading = false;
+            state.loginData = action?.payload?.data;
             localStorage.setItem("userToken",action?.payload?.data?.token)
+            localStorage.setItem("userId",action?.payload?.data?.Id)
         })
         .addCase(loginUser.rejected,(state,err)=>{
-            state.status = "failed";
+            state.loading = false;
             state.userError = err.payload.error;
+        })
+        .addCase(getUserProfile.pending,(state)=>{
+            state.loading = true;
+        })
+        .addCase(getUserProfile.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.userProfile = action.payload
+        })
+        .addCase(getUserProfile.rejected,(state,err)=>{
+            state.loading = false;
+            state.error = err.payload.error;
         })
         
     }

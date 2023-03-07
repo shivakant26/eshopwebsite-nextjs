@@ -1,25 +1,50 @@
+import { allRegisterUser } from "@/Services/authSlice";
+import { getUserProfile } from "@/Services/authUserSlice";
+import { getCartProduct } from "@/Services/productSlice";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Cart from "../cart";
+import { useDispatch, useSelector } from "react-redux";
+
+import CartPopup from "../CartPopup";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState(false);
-  const [showCart , setShowCart] = useState(false);
-  const adminToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
-  const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
-  const [hydrated, setHydrated] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const adminToken =
+    typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
+  const userToken =
+    typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
+  const userId =
+    typeof window !== "undefined" ? localStorage.getItem("userId") : "";
+
+  const dispatch = useDispatch();
+
+  const  data  = useSelector((state) => state?.authUser?.userProfile?.data?.user);
+
   useEffect(() => {
-    setHydrated(true);
+    dispatch(getCartProduct());
+    dispatch(getUserProfile())
   }, []);
-  if (!hydrated) {
-    return null;
-  }
+
   const showDrop = () => {
     setDropdown(!dropdown);
   };
-  const cartShow = () =>{
-    setShowCart(!showCart)
-  }
+
+  const handleClose = () => {
+    setShow(false);
+    document.body.style.backgroundColor = "";
+  };
+
+  const handleShow = () => {
+    setShow(true);
+    if (show === true) {
+      document.body.style.backgroundColor = "";
+    } else {
+      document.body.style.backgroundColor = "gray";
+    }
+  };
+
   return (
     <>
       <div className="header">
@@ -31,7 +56,7 @@ const Header = () => {
               </Link>
             </div>
             <div className="left_menu">
-              <ul>
+              <ul style={{ position: "relative" }}>
                 <li>
                   <Link href="#">Everything</Link>
                 </li>
@@ -55,41 +80,69 @@ const Header = () => {
               <li>
                 <Link href="/contactus">Contact Us</Link>
               </li>
-              <li style={{position:"relative"}} onClick={cartShow}>
+              <li onClick={handleShow}>
                 <Link href="#">
                   <i className="fa fa-shopping-cart"></i>
                 </Link>
-                {
-                  showCart ? (<>
+              </li>
+              {show ? (
+                <>
                   <div className="cart_wr">
-                  <Cart />
+                    <CartPopup show={show} hideFun={handleClose} />
                   </div>
-                  </>) : ""
-                }
-              </li>
-              {
-                !adminToken && !userToken ? (<>
-                <li className="drop_down" onClick={showDrop}>
-                <Link href="">
-                  <i className="fa fa-user"></i>
-                </Link>
-                {dropdown ? (
-                  <>
-                    <ul>
-                      <li>
-                        <Link href="/admin">admin</Link>
-                      </li>
-                      <li>
-                        <Link href="/user">user</Link>
-                      </li>
-                    </ul>
-                  </>
-                ) : (
-                  ""
-                )}
-              </li>
-                </>) : null 
-              }
+                </>
+              ) : (
+                ""
+              )}
+              {!adminToken && !userToken ? (
+                <>
+                  <li className="drop_down" onClick={showDrop}>
+                    <Link href="">
+                      <i className="fa fa-user"></i>
+                    </Link>
+                    {dropdown ? (
+                      <>
+                        <ul>
+                          <li>
+                            <Link href="/admin">admin</Link>
+                          </li>
+                          <li>
+                            <Link href="/user">user</Link>
+                          </li>
+                        </ul>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </li>
+                </>
+              )
+               : userToken ? (
+                <>
+                  <li className="drop_down" onClick={showDrop}>
+                    <Link href="">
+                      <span className="current_user">
+                        {data?.[0]?.email?.charAt(0)}
+                      </span>
+                    </Link>
+                    {dropdown ? (
+                      <>
+                        <ul>
+                          <li>
+                            <Link href="#">Dashboard</Link>
+                          </li>
+                          <li>
+                            <Link href="/user/dashboard/logout">Logout</Link>
+                          </li>
+                        </ul>
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </li>
+                </>
+              )
+               : null}
             </ul>
           </div>
         </div>

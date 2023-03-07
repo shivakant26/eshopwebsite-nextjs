@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import LoadingSpinner from "./Loder";
 
-const Login = () => {
+const AuthLogin = () => {
   const dispatch = useDispatch();
   const [passwordType, setPasswordType] = useState("password");
   const [isLoading, setIsLoading] = useState(false);
@@ -21,12 +21,12 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const{error}= useSelector((state)=>state?.auth);
-  const response = useSelector((state)=>state?.auth)
-  const{userError}= useSelector((state)=>state?.authUser)
+  // const{error}= useSelector((state)=>state?.auth);
+  // const response = useSelector((state)=>state?.auth)
+  // const{userError}= useSelector((state)=>state?.authUser)
 
-  const user = useSelector((state)=>state?.authUser?.loginData)
-  console.log(123456,response?.status)
+  const { loginData , loading , userError } = useSelector((state)=>state?.authUser)
+  console.log(1111111,userError)
   const adminToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
   const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
 
@@ -47,36 +47,29 @@ const Login = () => {
     setPasswordType("password");
   };
 
-  useEffect(()=>{
-    if(adminToken && response.status === 'success'){
-      toast.success("Login successfully");
-      router.push("/admin/dashboard")
-      setIsLoading(false)
-    }else if(response.status === 'failed'){
-      toast.error(error)
-      setIsLoading(false)
-    }
-  },[adminToken , error])
+  // useEffect(()=>{
+  //   if(adminToken && response.status === 'success'){
+  //     toast.success("Login successfully");
+  //     router.push("/admin/dashboard")
+  //     setIsLoading(false)
+  //   }else if(response.status === 'failed'){
+  //     toast.error(error)
+  //     setIsLoading(false)
+  //   }
+  // },[adminToken , error])
 
   useEffect(()=>{
     if(userToken){
-      toast.success("Login successfully");
-      setIsLoading(false)
-      router.push("/user/dashboard")
+      toast.success(`${loginData?.success}`);
+      setTimeout(()=>{
+        router.push("/user/dashboard")
+      },1000)
     }else{
-      setIsLoading(false)
       toast.error(userError)
     }
   },[userToken , userError ])
 
-  useEffect(()=>{
-    if(response?.status === "pending"){
-      setIsLoading(true)
-    }
-    else if(response?.status === "success"){
-      setIsLoading(false)
-    }
-  },[response])
+
   return (
     <>
       <div className="eshop_login_section">
@@ -170,4 +163,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AuthLogin;

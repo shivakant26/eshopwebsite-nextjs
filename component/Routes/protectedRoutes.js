@@ -18,10 +18,12 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.WOMEN,
         appRoute.USER,
         appRoute.SINGLEPRODUCT,
-        appRoute.REGISTER
+        appRoute.REGISTER,
     ]
     const isUserProtected = [
-        appRoute.USERDASHBOARD
+        appRoute.HOME,
+        appRoute.USERDASHBOARD,
+        appRoute.USERLOGOUT
     ]
     const isAdminProtected = [
         appRoute.ADMINDASHBOARD,
@@ -39,8 +41,9 @@ const ProtectedRoutes = ({ children }) => {
         path.push(appRoute.HOME)
       } else if (isBrowser() && adminToken && pathAdminProtected) {
         path.push(appRoute.ADMINDASHBOARD);
-      }else if (isBrowser() && userToken && pathUserProtected) {
-        path.push(appRoute.ADMINDASHBOARD);
+      }
+      else if (isBrowser() && userToken && pathUserProtected) {
+        path.push(appRoute.USERDASHBOARD);
       }
     return children;
 }

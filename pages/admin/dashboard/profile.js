@@ -139,7 +139,7 @@ const Profile = () => {
             <td colSpan={2}>
               {updateId ? (
                 <>
-                  <input type="submit"  value="Update" />
+                  <input type="submit" className="update_btn"  value="Update" />
                 </>
               ) : (
                 <>

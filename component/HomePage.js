@@ -9,21 +9,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllProduct } from "@/Services/productSlice";
 import SalesUpto from "./SalesUpto";
 import { useRouter } from "next/router";
+import LoadingSpinner from "./Loder";
+import { allRegisterUser } from "@/Services/authSlice";
 
 const HomePage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { product } = useSelector((state) => {
-    return {
-      product: state?.product?.products,
-    };
-  });
+  let userToken =
+    typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
+
+  const { products , loading } = useSelector((state) => state?.productSlice);
+
+  console.log(12, loading);
+
   useEffect(() => {
     dispatch(getAllProduct());
   }, []);
-  const singleProduct = (id) =>{
+
+  const singleProduct = (id) => {
     router.push(`/products/${id}`);
-  }
+  };
+
   return (
     <>
       <div className="banner_section">
@@ -173,45 +179,53 @@ const HomePage = () => {
         <div className="center_wr">
           <h2>Featured Products</h2>
           <div className="feature_product_list">
-            {product?.length > 0 ? (
-              <>
-                {product?.map((item, index) => {
-                  return (
-                    <div className="feature_card" key={index}>
-                      <div className="feat_card_image" onClick={()=>singleProduct(item?._id)}>
-                        <img src={item?.image} alt="item_image" />
-                        <div className="shop_icon">
-                          <i className="fa fa-shopping-bag"></i>
+            {
+              !loading ? (<>
+                {products?.length > 0 ? (
+                  <>
+                    {products?.map((item, index) => {
+                      return (
+                        <div className="feature_card" key={index}>
+                          <div
+                            className="feat_card_image"
+                            onClick={() => singleProduct(item?._id)}
+                          >
+                            <img src={item?.image} alt="item_image" />
+                            <div className="shop_icon">
+                              <i className="fa fa-shopping-bag"></i>
+                            </div>
+                          </div>
+                          <div className="feat_card_content">
+                            <h3>{item?.title}</h3>
+                            <span className="product_category">
+                              {item.description}
+                            </span>
+                            <span className="price">
+                              <del>
+                                <span className="product_price">$25.00</span>
+                              </del>
+                              <span className="orignal_price">${item?.price}</span>
+                            </span>
+                            <div className="star_rating">
+                              <i className="fa fa-star-o"></i>
+                              <i className="fa fa-star-o"></i>
+                              <i className="fa fa-star-o"></i>
+                              <i className="fa fa-star-o"></i>
+                              <i className="fa fa-star-o"></i>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="feat_card_content">
-                        <h3>{item?.title}</h3>
-                        <span className="product_category">
-                          {item.description}
-                        </span>
-                        <span className="price">
-                          <del>
-                            <span className="product_price">$25.00</span>
-                          </del>
-                          <span className="orignal_price">${item?.price}</span>
-                        </span>
-                        <div className="star_rating">
-                          <i className="fa fa-star-o"></i>
-                          <i className="fa fa-star-o"></i>
-                          <i className="fa fa-star-o"></i>
-                          <i className="fa fa-star-o"></i>
-                          <i className="fa fa-star-o"></i>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </>
-            ) : (
-              <>
-                <p className="empty">No Product Available</p>
-              </>
-            )}
+                      );
+                    })}
+                  </>
+                ) : (
+                  <>
+                    <p className="empty">No Product Available</p>
+                  </>
+                )}
+              </>) : <LoadingSpinner />
+            }
+            
           </div>
         </div>
       </div>

@@ -12,5 +12,7 @@ export const appRoute = {
     ALLUSER : "/admin/dashboard/alluser",
     ADMINPROFILE : "/admin/dashboard/profile",
     ADMINSETTING : "/admin/dashboard/setting",
-    USERDASHBOARD : "/user/dashboard"
+    USERDASHBOARD : "/user/dashboard",
+    USERPROFILE : "/user/dashboard/profile",
+    USERLOGOUT : "/user/dashboard/logout"
 }
