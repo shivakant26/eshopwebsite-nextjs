@@ -1,3 +1,22 @@
+## Feature of E-shop application
+
+1. Two main Module (User ,Admin)
+2. Protected route for both Module.
+3. Dashboard for both Module.
+4. Admin can do
+   (4.1) Block , 
+   (4.2) unBlock ,
+   (4.3) Delete User , 
+   (4.4) see all User , 
+   (4.5) make as admin/user , 
+   (4.6) add/update/delete product,
+   (4.7) see/update profile
+   (4.8) Logout
+5. User can do
+    (5.1) see/update profile
+    (5.2) Change password
+    (5.3) after Authentication add product into cart
+    
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

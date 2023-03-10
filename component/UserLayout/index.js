@@ -1,13 +1,13 @@
 import React from 'react';
 import Styles from "../../styles/Admin.module.css";
-import AdminSidebar from '../AdminLayout/AdminSidebar';
+import Sidebar from '../AdminLayout/Sidebar';
 
 const UserLayout = ({children}) => {
   return (
     <>
     <div className={Styles.admin_dashboard}>
           <div className={Styles.left_sidebar}>
-          <AdminSidebar />
+          <Sidebar />
           </div>
           <div className={Styles.admin_content}>
             {children}

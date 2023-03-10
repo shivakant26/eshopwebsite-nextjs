@@ -19,17 +19,23 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.USER,
         appRoute.SINGLEPRODUCT,
         appRoute.REGISTER,
+        // appRoute.CART
     ]
     const isUserProtected = [
         appRoute.HOME,
+        appRoute.SINGLEPRODUCT,
         appRoute.USERDASHBOARD,
-        appRoute.USERLOGOUT
+        appRoute.USERPROFILE,
+        appRoute.USERLOGOUT,
+        appRoute.USERCHANGEPASSWORD,
+        appRoute.CART
     ]
     const isAdminProtected = [
         appRoute.ADMINDASHBOARD,
         appRoute.ALLUSER,
         appRoute.ADMINPROFILE,
-        appRoute.ADMINSETTING
+        appRoute.ADMINSETTING,
+        appRoute.ADDPRODUCT
     ]
     
     const pathIsUnProtected = unProtected.indexOf(path.pathname) === -1;

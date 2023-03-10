@@ -1,0 +1,41 @@
+.user_profile{
+    padding: 20px;
+}
+.user_profile h1{
+    margin-bottom: 20px;
+}
+.user_profile table{
+    border-collapse: collapse;
+    width: 100%;
+}
+.user_profile table tr th{
+    border: 1px solid gray;
+}
+.user_profile table tr td{
+    border: 1px solid gray;
+}
+.success{
+    color: green;
+}
+.non_success{
+    color: red;
+}
+
+/* change password section */
+
+.change_password{
+    width: 37%;
+    padding: 30px;
+}
+.change_password h1{
+    color: #333;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+.change_pass{
+    padding: 10px 20px;
+    background-color: #006a8b;
+    color: #fff;
+    border:none;
+    border-radius: 5px;
+}

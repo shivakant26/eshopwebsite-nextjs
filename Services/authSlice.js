@@ -2,7 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./apiConfig";
 
 const initialState = {
-  admin: [],
+  loading : false,
+  isAdmin: "",
   allUsers: [],
   adminProfileData: [],
   unBlock: [],
@@ -18,7 +19,9 @@ export const adminLogin = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const response = await instance.post("/login", data);
-      return response;
+      if(response.status === 200){
+        return response;
+      }
     } catch (error) {
       return rejectWithValue(error?.response?.data);
     }
@@ -118,15 +121,15 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(adminLogin.pending, (state) => {
-        state.status = "pending";
+        state.loading = true
       })
       .addCase(adminLogin.fulfilled, (state, action) => {
-        state.status = "success";
-        state.admin = action?.payload?.data;
+        state.loading = false
+        state.isAdmin = action?.payload?.data?.success;
         localStorage.setItem("adminToken", action?.payload?.data?.token);
       })
       .addCase(adminLogin.rejected, (state, err) => {
-        state.status = "failed";
+        state.loading = false
         state.error = err.payload.error;
       })
       .addCase(allRegisterUser.pending, (state) => {

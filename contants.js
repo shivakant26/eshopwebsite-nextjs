@@ -6,13 +6,16 @@ export const appRoute = {
     SHOP : "/shop",
     ADMIN : "/admin",
     USER : "/user",
-    REGISTER:"/user/register",
+    CART : "/cart",
+    REGISTER: "/user/register",
     SINGLEPRODUCT : "/products/[id]",
     ADMINDASHBOARD : "/admin/dashboard",
     ALLUSER : "/admin/dashboard/alluser",
     ADMINPROFILE : "/admin/dashboard/profile",
     ADMINSETTING : "/admin/dashboard/setting",
+    ADDPRODUCT : "/admin/dashboard/addproduct",
     USERDASHBOARD : "/user/dashboard",
     USERPROFILE : "/user/dashboard/profile",
+    USERCHANGEPASSWORD : "/user/dashboard/changepassword",
     USERLOGOUT : "/user/dashboard/logout"
 }

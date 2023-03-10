@@ -26,8 +26,6 @@ const Profile = () => {
   
   useEffect(() => {
     dispatch(getAdminProfile());
-
-    
   }, [updateId,profileStatus]);
 
   const profileUpdate = (id) => {
@@ -36,7 +34,6 @@ const Profile = () => {
 
   const onSubmit = (data) => {
     let body = {updateId,data}
-  
     dispatch(updateProfile(body))
   };
 
@@ -53,7 +50,6 @@ const Profile = () => {
       setUpdateId("");
       toast.success("update successful");
     }else{
-
     }
   },[profileStatus])
 

@@ -142,4 +142,28 @@
     background-color: #0086d2;
   }
   
- 
+ /* product page style */
+ .product_page_wr{
+  padding: 20px;
+ }
+ .product_page_wr table{
+  width: 70%;
+  border-collapse: collapse;
+  margin: 25px 0px;
+ }
+ .product_page_wr table tr .product_images{
+  border: 1px solid #c7c7c7;
+  height: 230px;
+  width: 200px;
+  margin: 0 auto;
+  border-radius: 5px;
+ }
+ .product_page_wr table tr .product_images img{
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+ }
+
+ .product_page_wr table tr td{
+  /* border: 1px solid gray; */
+ }

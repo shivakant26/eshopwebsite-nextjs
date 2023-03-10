@@ -20,12 +20,13 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const  data  = useSelector((state) => state?.authUser?.userProfile?.data?.user);
+  const { userProfile }  = useSelector((state) => state?.authUser);
+  const { addItemCart , getitem } = useSelector((state)=>state?.productSlice)
 
   useEffect(() => {
     dispatch(getCartProduct());
     dispatch(getUserProfile())
-  }, []);
+  }, [getitem]);
 
   const showDrop = () => {
     setDropdown(!dropdown);
@@ -83,6 +84,11 @@ const Header = () => {
               <li onClick={handleShow}>
                 <Link href="#">
                   <i className="fa fa-shopping-cart"></i>
+                  {
+                    getitem?.length > 0 ? (<>
+                  <span className="cart_items">{getitem?.length}</span>
+                    </>) : ""
+                  }
                 </Link>
               </li>
               {show ? (
@@ -122,14 +128,14 @@ const Header = () => {
                   <li className="drop_down" onClick={showDrop}>
                     <Link href="">
                       <span className="current_user">
-                        {data?.[0]?.email?.charAt(0)}
+                        {userProfile?.[0]?.email?.charAt(0)}
                       </span>
                     </Link>
                     {dropdown ? (
                       <>
                         <ul>
-                          <li>
-                            <Link href="#">Dashboard</Link>
+                        <li>
+                            <Link href="/user/dashboard">Dashboard</Link>
                           </li>
                           <li>
                             <Link href="/user/dashboard/logout">Logout</Link>

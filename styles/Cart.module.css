@@ -1,0 +1,65 @@
+.cart_heading{
+    padding: 50px 0px;
+}
+.cart_heading h1{
+    text-align: center;
+    font-size: 60px;
+    color: #333;
+}
+.cart_table table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+.cart_table table th, .cart_table table td{
+    border:1px solid rgb(209, 204, 204);
+    padding: 10px 0px;
+}
+.coupon_section{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+.coupon{
+    display: flex;
+}
+.coupon input{
+    padding: 0 15px !important;
+}
+.cart_total{
+    display: flex;
+    justify-content: flex-end;
+    padding: 40px 0px;
+}
+.cart_total_table{
+    border:1px solid rgb(209, 206, 206);
+    width: 40%;
+}
+.cart_total_table table{
+    width: 100%;
+}
+.cart_total_table table td, .cart_total_table table th{
+    border-left: none;
+    border-right: none;
+    text-align: left;
+    border-bottom: 1px solid rgb(209, 206, 206);
+    color:#333;
+    font-weight: 100;
+}
+.cart_total_table table th h3{
+    text-align: left;
+    padding: 11px 0px;
+}
+.cart_total_table table tr{
+    border: 2px solid gray;
+}
+.table_bottom button{
+    width: 180px;
+    background: #006a8b;
+    border: none;
+    color: #fff;
+    margin: 15px 11px;
+    padding: 12px 0px;
+    text-transform: uppercase;
+}
+

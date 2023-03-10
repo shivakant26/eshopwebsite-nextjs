@@ -267,19 +267,19 @@ useEffect(()=>{
                     <label>Your Rating*</label>
                     <p className="start">
                       <span>
-                        <i class="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
                       </span>
                       <span>
-                        <i class="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
                       </span>
                       <span>
-                        <i class="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
                       </span>
                       <span>
-                        <i class="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
                       </span>
                       <span>
-                        <i class="fa fa-star-o"></i>
+                        <i className="fa fa-star-o"></i>
                       </span>
                     </p>
                   </div>

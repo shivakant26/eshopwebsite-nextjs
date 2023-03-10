@@ -21,12 +21,10 @@ const AuthLogin = () => {
     watch,
     formState: { errors },
   } = useForm();
-  // const{error}= useSelector((state)=>state?.auth);
-  // const response = useSelector((state)=>state?.auth)
-  // const{userError}= useSelector((state)=>state?.authUser)
 
+  const{ isAdmin , error }= useSelector((state)=>state?.auth);
   const { loginData , loading , userError } = useSelector((state)=>state?.authUser)
-  console.log(1111111,userError)
+
   const adminToken = typeof window !== "undefined" ? localStorage.getItem("adminToken") : "";
   const userToken = typeof window !== "undefined" ? localStorage.getItem("userToken") : "";
 
@@ -39,6 +37,7 @@ const AuthLogin = () => {
     }
     reset()
   };
+  
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -47,22 +46,22 @@ const AuthLogin = () => {
     setPasswordType("password");
   };
 
-  // useEffect(()=>{
-  //   if(adminToken && response.status === 'success'){
-  //     toast.success("Login successfully");
-  //     router.push("/admin/dashboard")
-  //     setIsLoading(false)
-  //   }else if(response.status === 'failed'){
-  //     toast.error(error)
-  //     setIsLoading(false)
-  //   }
-  // },[adminToken , error])
+  useEffect(()=>{
+    if(adminToken && isAdmin){
+      toast.success(isAdmin);
+      router.push("/admin/dashboard")
+      setIsLoading(false)
+    }else if(error){
+      toast.error(error)
+      setIsLoading(false)
+    }
+  },[adminToken , error])
 
   useEffect(()=>{
     if(userToken){
       toast.success(`${loginData?.success}`);
       setTimeout(()=>{
-        router.push("/user/dashboard")
+        router.push("/")
       },1000)
     }else{
       toast.error(userError)

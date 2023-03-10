@@ -1,3 +1,4 @@
+import { headers } from "@/next.config";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./apiConfig";
 
@@ -6,10 +7,17 @@ const initialState = {
     users:[],
     loginData:[],
     userProfile:[],
+    updateProfile:[],
+    changePasswordStatus:"",
     status:"",
     error : ""
 };
+// var userToken =
+//   typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
 
+//   const config = {
+//     headers: { Authorization: `Bearer ${userToken}` }
+// };
 export const addNewUser = createAsyncThunk(
     "authUser/addNewUser",
     async(data,{rejectWithValue})=>{
@@ -50,6 +58,34 @@ export const getUserProfile = createAsyncThunk(
     }    
 })
 
+export const updateUserProfile = createAsyncThunk(
+    "authUser/updateUserProfile",
+    async(body,{rejectWithValue})=>{   
+    try{
+       const response =  await instance.put(`/updateUserProfile/${body.updateId}`,body.data)
+       if(response.status === 200){
+           return response;
+       }
+    }
+    catch(error){
+        return rejectWithValue(error?.response?.data);
+    }    
+})
+
+export const changeUserPassword = createAsyncThunk(
+    "authUser/changeUserPassword",
+    async(body,{rejectWithValue})=>{   
+    try{
+       const response =  await instance.post('/changePassword',body)
+       if(response.status === 200){
+           return response;
+       }
+    }
+    catch(error){
+        return rejectWithValue(error?.response?.data);
+    }    
+})
+
 
 const authUserSlice = createSlice({
     name:"authUser",
@@ -77,16 +113,38 @@ const authUserSlice = createSlice({
         })
         .addCase(loginUser.rejected,(state,err)=>{
             state.loading = false;
-            state.userError = err.payload.error;
+            state.userError = err?.payload?.error;
         })
         .addCase(getUserProfile.pending,(state)=>{
             state.loading = true;
         })
         .addCase(getUserProfile.fulfilled,(state,action)=>{
             state.loading = false;
-            state.userProfile = action.payload
+            state.userProfile = action.payload.data.user;
         })
         .addCase(getUserProfile.rejected,(state,err)=>{
+            state.loading = false;
+            // state.error = err.payload.error;
+        })
+        .addCase(updateUserProfile.pending,(state)=>{
+            state.loading = true;
+        })
+        .addCase(updateUserProfile.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.updateProfile = action.payload.data;
+        })
+        .addCase(updateUserProfile.rejected,(state,err)=>{
+            state.loading = false;
+            state.error = err.payload.error;
+        })
+        .addCase(changeUserPassword.pending,(state)=>{
+            state.loading = true;
+        })
+        .addCase(changeUserPassword.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.changePasswordStatus = action.payload.data;
+        })
+        .addCase(changeUserPassword.rejected,(state,err)=>{
             state.loading = false;
             state.error = err.payload.error;
         })
