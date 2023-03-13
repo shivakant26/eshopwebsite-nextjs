@@ -59,16 +59,16 @@ const Header = () => {
             <div className="left_menu">
               <ul style={{ position: "relative" }}>
                 <li>
-                  <Link href="#">Everything</Link>
+                  <Link href="/everythings">Everything</Link>
                 </li>
                 <li>
                   <Link href="/women">women</Link>
                 </li>
                 <li>
-                  <Link href="#">men</Link>
+                  <Link href="/men">men</Link>
                 </li>
                 <li>
-                  <Link href="#">Accessories</Link>
+                  <Link href="/accessories">Accessories</Link>
                 </li>
               </ul>
             </div>
@@ -128,7 +128,7 @@ const Header = () => {
                   <li className="drop_down" onClick={showDrop}>
                     <Link href="">
                       <span className="current_user">
-                        {userProfile?.[0]?.email?.charAt(0)}
+                        {userProfile?.[0]?.email?.charAt(0) ? userProfile?.[0]?.email?.charAt(0) : <i class="fa fa-bars"></i>}
                       </span>
                     </Link>
                     {dropdown ? (

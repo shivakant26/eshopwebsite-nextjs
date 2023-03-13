@@ -16,6 +16,9 @@
     (5.1) see/update profile
     (5.2) Change password
     (5.3) after Authentication add product into cart
+    (5.4) add quntity and many more action
+6. Dynamic Token saving such as user and admin
+7. Make range slider for min and max    
     
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

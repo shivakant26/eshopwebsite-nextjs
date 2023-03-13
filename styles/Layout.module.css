@@ -7,3 +7,79 @@
 .layout_content{
     flex-basis: 75%;
 }
+
+/* Everythings styles */
+.sidebar_wr{
+    padding: 40px 20px;
+}
+.sidebar_wr input[type="search"]{
+    padding: 8px 15px;
+    width: 86%;
+}
+.search_product{
+    margin-bottom: 25px;
+}
+.search_product button{
+    padding: 10px 15px;
+    background: #006a8b;
+    color: #fff;
+    border: none;
+    transition: .5s;
+    margin-left: -5px;
+}
+.search_product button:hover , .filter_btn button:hover{
+    background-color: black;
+}
+.sidebar_wr input[type="search"]:focus{
+    outline: none !important;
+}
+.product_list{
+    padding: 60px 20px;
+}
+.filter_by , .product_category{
+    margin-bottom: 25px;
+}
+.filter_by h5 , .product_category h5 , .product_list_widgets h5{
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+.filter_by p{
+    padding: 7px 0px;
+}
+.filter_btn{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+.filter_btn button{
+    padding: 8px 15px;
+    width: 100px;
+    background: #006a8b;
+    color: #fff;
+    text-transform: capitalize;
+    border: none;
+    border-radius: 3px;
+    transition: .4s;
+    letter-spacing: 1px;
+}
+.product_category ul{
+    list-style: none;
+}
+.product_category ul li{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+.breadcamb{
+    padding: 0px 73px;
+}
+
+/* women page layout */
+.women_pg_content{
+    padding: 30px 73px;
+}
+
+.women_pg_content p{
+    line-height: 25px;
+    margin-top: 17px;
+}

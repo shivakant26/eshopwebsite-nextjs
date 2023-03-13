@@ -7,9 +7,7 @@ const CartPopup = (props) => {
   const dispatch = useDispatch();
   const { addItemCart , getitem } = useSelector(
     (state) => state?.productSlice
-  );
-  console.log(1010,getitem)
-  console.log(1011,addItemCart) 
+  ); 
 
   const delCart = (id) => {
     dispatch(deleteCartItem(id));
@@ -17,7 +15,7 @@ const CartPopup = (props) => {
 
   useEffect(() => {
     dispatch(getCartProduct());
-  }, []);
+  }, [getitem]);
 
   return (
     <>

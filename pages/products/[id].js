@@ -19,7 +19,7 @@ const SingleProduct = () => {
   const id = router?.query?.id;
   const [quantity , setQunatity] = useState();
   const dispatch = useDispatch();
-  const { products , error } = useSelector((state) => {
+  const { products , error , authError } = useSelector((state) => {
     return {
       products: state?.productSlice?.products,
       error : state?.productSlice?.error
@@ -37,8 +37,10 @@ useEffect(() => {
 useEffect(()=>{
   if(error){
     toast.error(error)
+  }else if(authError){
+    toast.error(authError)
   }
-},[error])
+},[error , authError])
   useEffect(() => {
     dispatch(getAllProduct());
   }, [id]);

@@ -4,31 +4,12 @@ import { Autoplay } from "swiper";
 import "swiper/css/navigation";
 import Image from "next/image";
 import WorldWide from "./WorldWide";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllProduct } from "@/Services/productSlice";
 import SalesUpto from "./SalesUpto";
-import { useRouter } from "next/router";
-import LoadingSpinner from "./Loder";
-import { allRegisterUser } from "@/Services/authSlice";
+import AllProduct from "./AllProduct";
 
 const HomePage = () => {
-  const router = useRouter();
-  const dispatch = useDispatch();
   let userToken =
     typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
-
-  const { products , loading } = useSelector((state) => state?.productSlice);
-
-  console.log(12, loading);
-
-  useEffect(() => {
-    dispatch(getAllProduct());
-  }, []);
-
-  const singleProduct = (id) => {
-    router.push(`/products/${id}`);
-  };
 
   return (
     <>
@@ -178,7 +159,7 @@ const HomePage = () => {
       <div className="feature_product">
         <div className="center_wr">
           <h2>Featured Products</h2>
-          <div className="feature_product_list">
+          {/* <div className="feature_product_list">
             {
               !loading ? (<>
                 {products?.length > 0 ? (
@@ -226,7 +207,8 @@ const HomePage = () => {
               </>) : <LoadingSpinner />
             }
             
-          </div>
+          </div> */}
+          <AllProduct />
         </div>
       </div>
       {/* end feature product section */}

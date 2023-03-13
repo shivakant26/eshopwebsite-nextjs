@@ -96,16 +96,19 @@ const productSlice = createSlice({
             state.error=er.payload;
         })
         .addCase(addToCart.pending,(state)=>{
-            state.status = "pending";
+            state.loading = true;
+            state.authError = "";
         })
         .addCase(addToCart.fulfilled,(state,action)=>{
-            state.status = "success";
+            state.loading = false;
             state.error = ""
+            state.authError = "";
             state.addItemCart = action.payload.data;
         })
         .addCase(addToCart.rejected,(state,err)=>{
-            state.status = "failed";
+            state.loading = false;
             state.error = err.payload.message;
+            state.authError = err.payload.error;
         })
         .addCase(getCartProduct.pending,(state)=>{
             state.status = "pending";

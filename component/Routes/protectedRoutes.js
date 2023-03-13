@@ -19,6 +19,9 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.USER,
         appRoute.SINGLEPRODUCT,
         appRoute.REGISTER,
+        appRoute.EVERYTHINGS,
+        appRoute.MEN,
+        appRoute.ACCESSORIES
         // appRoute.CART
     ]
     const isUserProtected = [
