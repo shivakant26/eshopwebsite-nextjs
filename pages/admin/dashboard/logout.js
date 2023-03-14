@@ -7,7 +7,7 @@ export const Logout = () => {
   useEffect(()=>{
     localStorage.removeItem("adminToken");
       router.push("/");
-  },[])
+  },[router])
 
   return (
     <div>logout</div>

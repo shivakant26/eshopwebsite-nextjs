@@ -16,25 +16,29 @@ const Profile = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const [updateId, setUpdateId] = useState("");
-  const { adminProfileData ,profileStatus} = useSelector((state) => {
-    return {
-      adminProfileData: state?.auth?.adminProfileData?.Admin,
-      profileStatus : state?.auth?.profileStatus
-    };
-  });
-  
+  const { adminProfileData, authLoading, profileStatus } = useSelector(
+    (state) => {
+      return {
+        adminProfileData: state?.auth?.adminProfileData?.Admin,
+        profileStatus: state?.auth?.profileStatus,
+        authLoading: state?.auth?.authLoading,
+      };
+    }
+  );
+
   useEffect(() => {
     dispatch(getAdminProfile());
-  }, [updateId,profileStatus]);
+  }, [updateId, profileStatus, dispatch]);
 
   const profileUpdate = (id) => {
     setUpdateId(id);
   };
 
   const onSubmit = (data) => {
-    let body = {updateId,data}
-    dispatch(updateProfile(body))
+    let body = { updateId, data };
+    dispatch(updateProfile(body));
   };
 
   useEffect(() => {
@@ -42,16 +46,15 @@ const Profile = () => {
       setValue("email", adminProfileData?.[0]?.email);
       setValue("firstName", adminProfileData?.[0]?.firstName);
     }
-  }, [updateId]);
+  }, [updateId, setValue, adminProfileData]);
 
-  useEffect(()=>{
-    console.log(55,profileStatus)
-    if(profileStatus !== ""){
+  useEffect(() => {
+    if (profileStatus !== "") {
       setUpdateId("");
       toast.success("update successful");
-    }else{
+    } else {
     }
-  },[profileStatus])
+  }, [profileStatus]);
 
   return (
     <div className={Styles.admin_profile}>
@@ -135,7 +138,13 @@ const Profile = () => {
             <td colSpan={2}>
               {updateId ? (
                 <>
-                  <input type="submit" className="update_btn"  value="Update" />
+                  <input
+                    type="submit"
+                    className={
+                      authLoading === true ? "update_btn loading" : "update_btn"
+                    }
+                    value={authLoading === true ? "Loading..." : "Update"}
+                  />
                 </>
               ) : (
                 <>

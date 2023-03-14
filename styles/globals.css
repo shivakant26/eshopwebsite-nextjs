@@ -800,3 +800,6 @@ table tr td button:hover{
 .checkout_cart_btn a:hover{
   background-color: #000;
 }
+.loading{
+background: rgba(0,0,0,0.3);
+}

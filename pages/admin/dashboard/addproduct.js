@@ -18,7 +18,6 @@ const AddProduct = () => {
   } = useForm();
   const [productImage, setProductImage] = useState("");
   const {message , error , status} = useSelector((state) => state?.productSlice);
-  console.log(12222222,error );
   const onSubmit = (data) => {
     let formData = new FormData();
     formData.append("title", data?.title);

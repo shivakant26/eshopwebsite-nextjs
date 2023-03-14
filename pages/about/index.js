@@ -1,6 +1,6 @@
 import WorldWide from "@/component/WorldWide";
 import Image from "next/image";
-import Styles from "../styles/About.module.css";
+import Styles from "../../styles/About.module.css";
 const About = () => {
   return (
     <>
@@ -24,7 +24,7 @@ const About = () => {
             </div>
             <div className={Styles.who_we_image}>
               <Image
-                src={require("../assets/images/who_we.jpg")}
+                src={require("../../assets/images/who_we.jpg")}
                 alt="who_we_image"
               />
             </div>
@@ -44,44 +44,62 @@ const About = () => {
           </div>
           <div className={Styles.profile_cards_group}>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
             <div className={Styles.profile_card}>
-                <Image src={require("../assets/images/profile_first.png")} alt="" />
-                <h4>Harvey Spector</h4>
-                <p>Founder - CEO</p>
+              <Image
+                src={require("../../assets/images/profile_first.png")}
+                alt=""
+              />
+              <h4>Harvey Spector</h4>
+              <p>Founder - CEO</p>
             </div>
           </div>
         </div>
       </div>
       <div className={Styles.follow_us_section}>
         <div className="center_wr">
-            <div className={Styles.follow_us}>
-                <h2>Follow Us</h2>
-                <div className={Styles.follow_us_icons}>
-                <ul>
+          <div className={Styles.follow_us}>
+            <h2>Follow Us</h2>
+            <div className={Styles.follow_us_icons}>
+              <ul>
                 <li>
                   <a href="#">
                     <i class="fa fa-facebook-f"></i>
@@ -103,8 +121,8 @@ const About = () => {
                   </a>
                 </li>
               </ul>
-                </div>
             </div>
+          </div>
         </div>
       </div>
       <WorldWide />

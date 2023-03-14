@@ -1,6 +1,6 @@
 import SalesUpto from "@/component/SalesUpto";
 import { useForm } from "react-hook-form";
-import Styles from "../styles/Contact.module.css";
+import Styles from "../../styles/Contact.module.css";
 const ContactUs = () => {
   const {
     register,
@@ -50,7 +50,7 @@ const ContactUs = () => {
             <div className={Styles.have_any}>
               <div className={Styles.have_any_top}>
                 <h5>Have any queries?</h5>
-                <h2>We're here to help.​</h2>
+                <h2>We are here to help.​</h2>
               </div>
               <div className={Styles.have_any_cards}>
                 {contactInfo?.length > 0 ? (
@@ -78,7 +78,7 @@ const ContactUs = () => {
           <div className="center_wr">
             <div className={Styles.main_wrapper}>
               <div className={Styles.contact_text}>
-                <h6>Don't be a stranger!</h6>
+                <h6>Do not be a stranger!</h6>
                 <h2>You tell us. We listen.</h2>
                 <p>
                   Cras elementum finibus lacus nec lacinia. Quisque non

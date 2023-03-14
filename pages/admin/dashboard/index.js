@@ -28,7 +28,7 @@ const AdminDashboard = () => {
   });
   useEffect(() => {
     dispatch(allRegisterUser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={Styles.dashboard_pg_wr}>

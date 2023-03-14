@@ -21,7 +21,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { userProfile }  = useSelector((state) => state?.authUser);
-  const { addItemCart , getitem } = useSelector((state)=>state?.productSlice)
+  const { addItemCart , getitem } = useSelector((state)=>state?.productSlice);
 
   useEffect(() => {
     dispatch(getCartProduct());

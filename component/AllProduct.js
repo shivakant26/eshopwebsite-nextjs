@@ -5,15 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingSpinner from "./Loder";
 
 const AllProduct = () => {
-    const dispatch = useDispatch();   
-    const router = useRouter();
-    useEffect(() => {
-        dispatch(getAllProduct());
-      }, []);
-      const { products , loading } = useSelector((state) => state?.productSlice);
-      const singleProduct = (id) => {
-        router.push(`/products/${id}`);
-      };
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const { products, loading } = useSelector((state) => state?.productSlice);
+  const singleProduct = (id) => {
+    router.push(`/products/${id}`);
+  };
+
+  useEffect(() => {
+    dispatch(getAllProduct());
+  }, [dispatch]);
 
   return (
     <>

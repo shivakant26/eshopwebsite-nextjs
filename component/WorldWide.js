@@ -1,60 +1,63 @@
-const { default: Image } = require("next/image")
+import Image from "next/image";
+import GlobeImage from "../assets/images/globe-free-img.png";
+import QualityImage from "../assets/images/quality-free-img.png";
+import TagFreeImage from "../assets/images/tag-free-img.png";
+import LockFreeImage from "../assets/images/lock-free-img.png";
 
-const WorldWide = () =>{
-    return(
-        <>
-        <div className="world_wide_section">
+const WorldWide = () => {
+  const WorldWideArray = [
+    {
+      heading: "Worldwide Shipping",
+      discription:
+        "It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+      image: GlobeImage,
+      imageAlt: "world_shipping",
+      className: "world_shipping",
+    },
+    {
+      heading: "Best Quality",
+      discription:
+        "It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+      image: QualityImage,
+      imageAlt: "quality_shipping",
+      className: "best_qualitys",
+    },
+    {
+      heading: "Best Offers",
+      discription:
+        "It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+      image: TagFreeImage,
+      imageAlt: "best_offer",
+      className: "best_offer",
+    },
+    {
+      heading: "Secure Payments",
+      discription:
+        "It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+      image: LockFreeImage,
+      imageAlt: "secure_payments",
+      className: "secure_payments",
+    },
+  ];
+  return (
+    <>
+      <div className="world_wide_section">
         <div className="center_wr">
           <div className="div_container">
-            <div className="world_shipping common">
-              <Image
-                src={require("../assets/images/globe-free-img.png")}
-                alt="world_shipping"
-              />
-              <h5>Worldwide Shipping</h5>
-              <p>
-                It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
-                leo.
-              </p>
-            </div>
-            <div className="best_qualitys common">
-              <Image
-                src={require("../assets/images/quality-free-img.png")}
-                alt="quality_shipping"
-              />
-              <h5>Worldwide Shipping</h5>
-              <p>
-                It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
-                leo.
-              </p>
-            </div>
-            <div className="best_offer common">
-              <Image
-                src={require("../assets/images/tag-free-img.png")}
-                alt="best_offer"
-              />
-              <h5>Worldwide Shipping</h5>
-              <p>
-                It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
-                leo.
-              </p>
-            </div>
-            <div className="secure_payments common">
-              <Image
-                src={require("../assets/images/lock-free-img.png")}
-                alt="secure_payments"
-              />
-              <h5>Worldwide Shipping</h5>
-              <p>
-                It elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus
-                leo.
-              </p>
-            </div>
+            {WorldWideArray?.map((data, index) => {
+              return (
+                <div className={`${data?.className} common`} key={index}>
+                  <Image src={data?.image} alt={data?.imageAlt} />
+                  <h5>{data?.heading}</h5>
+                  <p>{data?.discription}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-        </>
-    )
-}
+    </>
+  );
+};
 
 export default WorldWide;

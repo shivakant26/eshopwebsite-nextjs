@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./apiConfig";
 
 const initialState = {
-  loading : false,
+  authLoading : false,
   isAdmin: "",
   allUsers: [],
   adminProfileData: [],
@@ -121,15 +121,15 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(adminLogin.pending, (state) => {
-        state.loading = true
+        state.authLoading = true
       })
       .addCase(adminLogin.fulfilled, (state, action) => {
-        state.loading = false
+        state.authLoading = false
         state.isAdmin = action?.payload?.data?.success;
         localStorage.setItem("adminToken", action?.payload?.data?.token);
       })
       .addCase(adminLogin.rejected, (state, err) => {
-        state.loading = false
+        state.authLoading = false
         state.error = err.payload.error;
       })
       .addCase(allRegisterUser.pending, (state) => {
@@ -144,13 +144,16 @@ const authSlice = createSlice({
       })
       .addCase(getAdminProfile.pending, (state) => {
         state.status = "pending";
+        state.authLoading = true
       })
       .addCase(getAdminProfile.fulfilled, (state, action) => {
         state.status = "success";
+        state.authLoading = false
         state.adminProfileData = action?.payload?.data;
       })
       .addCase(getAdminProfile.rejected, (state, err) => {
         state.status = "failed";
+        state.authLoading = false
       })
       .addCase(verifyUser.pending, (state) => {
         state.status = "pending";
@@ -183,47 +186,47 @@ const authSlice = createSlice({
         state.block = "";
       })
       .addCase(roleAsAdmin.pending, (state) => {
-        state.status = "pending";
+        state.authLoading = true;
         state.error = "";
         state.updateRole = "";
       })
       .addCase(roleAsAdmin.fulfilled, (state, action) => {
-        state.status = "success";
+        state.authLoading = false;
         state.updateRole = action?.payload?.data;
         state.error = "";
       })
       .addCase(roleAsAdmin.rejected, (state, err) => {
-        state.status = "failed";
+        state.authLoading = false;
         state.error = err.payload.message;
         state.updateRole = "";
       })
       .addCase(roleAsUser.pending, (state) => {
-        state.status = "pending";
+        state.authLoading = true;
         state.error = "";
         state.updateRole = "";
       })
       .addCase(roleAsUser.fulfilled, (state, action) => {
-        state.status = "success";
+        state.authLoading = false;
         state.updateRole = action?.payload?.data;
         state.error = "";
       })
       .addCase(roleAsUser.rejected, (state, err) => {
-        state.status = "failed";
+        state.authLoading = false;
         state.error = err.payload.message;
         state.updateRole = "";
       })
       .addCase(updateProfile.pending, (state) => {
-        state.status = "pending";
+        state.authLoading = true;
         state.error = "";
         state.profileStatus = "";
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
-        state.status = "success";
+        state.authLoading = false
         state.profileStatus = action?.payload?.data;
         state.error = "";
       })
       .addCase(updateProfile.rejected, (state, err) => {
-        state.status = "failed";
+        state.authLoading = false;
         state.error = err.payload.message;
         state.profileStatus = "";
       });

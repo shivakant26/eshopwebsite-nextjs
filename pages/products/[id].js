@@ -17,33 +17,36 @@ const SingleProduct = () => {
   } = useForm();
   const router = useRouter();
   const id = router?.query?.id;
-  const [quantity , setQunatity] = useState();
+  const [quantity, setQunatity] = useState();
   const dispatch = useDispatch();
-  const { products , error , authError } = useSelector((state) => {
+  const { products, error, authError } = useSelector((state) => {
     return {
       products: state?.productSlice?.products,
-      error : state?.productSlice?.error
+      error: state?.productSlice?.error,
+      authError: state?.productSlice?.authError,
     };
   });
-const cartpro = useSelector((state)=>state?.product?.additem)
-console.log(123456,products)
 
-var userToken = typeof window!=="undefined" ?  localStorage.getItem("userToken"):null;
+  var userToken =
+    typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
 
-useEffect(() => {
- console.log(userToken)
-}, [userToken]);
+  useEffect(() => {}, [userToken]);
 
-useEffect(()=>{
-  if(error){
-    toast.error(error)
-  }else if(authError){
-    toast.error(authError)
-  }
-},[error , authError])
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (authError) {
+      toast.error(authError);
+    }
+  }, [authError]);
+
   useEffect(() => {
     dispatch(getAllProduct());
-  }, [id]);
+  }, [id, dispatch]);
 
   const block = (id1, id2, id3, id1btn, id2btn, id3btn) => {
     document.getElementById(id1).style.display = "block";
@@ -76,75 +79,81 @@ useEffect(()=>{
   const onSubmit = (data) => {
     // console.log(data)
   };
-  const addproduct = (itemId)=>{
-    let object = {itemId,quantity}
-    dispatch(addToCart(object))
-  }
+  const addCart = (itemId) => {
+    let object = { itemId, quantity };
+    dispatch(addToCart(object));
+  };
   return (
     <>
       <div className={Styles.single_product_section}>
         <div className="center_wr">
-          {products?.length > 0 && products
-            ?.filter((el) => {
-              if (el._id === id) {
-                return el;
-              }
-            })
-            .map((item, index) => {
-              return (
-                <>
-                  <div className={Styles.single_product} key={index}>
-                    <div className={Styles.product_image}>
-                      <img src={item?.image}
-                        alt="product_img"
-                      />
+          {products?.length > 0 &&
+            products
+              ?.filter((el) => {
+                if (el._id === id) {
+                  return el;
+                }
+              })
+              .map((item, index) => {
+                return (
+                  <>
+                    <div className={Styles.single_product} key={index}>
+                      <div className={Styles.product_image}>
+                        <img src={item?.image} alt="product_img" />
+                      </div>
+                      <div className={Styles.product_contant}>
+                        <div className={Styles.breadcurmb}>
+                          <span>Home / Accessorirs / {item?.title}</span>
+                        </div>
+                        <span className={Styles.single_product_category}>
+                          <a href="#">Accessorirs</a>
+                        </span>
+                        <h1 className={Styles.product_title}>{item?.title}</h1>
+                        <p className="price_section">
+                          <span className={Styles.price_in}>
+                            ${item?.price}
+                          </span>
+                          <span className={Styles.ext_text}>
+                            {" "}
+                            + Free Shipping
+                          </span>
+                        </p>
+                        <p className={Styles.about_product}>
+                          Nam nec tellus a odio tincidunt auctor a ornare odio.
+                          Sed non mauris vitae erat consequat auctor eu in elit.
+                          Class aptent taciti sociosqu ad litora torquent per
+                          conubia nostra, per inceptos himenaeos. Mauris in erat
+                          justo. Nullam ac urna eu felis dapibus condimentum sit
+                          amet a augue. Sed non neque elit sed .
+                        </p>
+                        <div className={Styles.quantity_and_cart}>
+                          <span>
+                            <select
+                              onChange={(e) => setQunatity(e.target.value)}
+                            >
+                              <option value="none">none</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                            </select>
+                          </span>
+                          <span>
+                            <button onClick={() => addCart(item._id)}>
+                              add to cart
+                            </button>
+                          </span>
+                        </div>
+                        <hr />
+                        <div className={Styles.product_meta}>
+                          <span>
+                            Category:<a href="#">Women</a>
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className={Styles.product_contant}>
-                      <div className={Styles.breadcurmb}>
-                        <span>Home / Accessorirs / {item?.title}</span>
-                      </div>
-                      <span className={Styles.single_product_category}>
-                        <a href="#">Accessorirs</a>
-                      </span>
-                      <h1 className={Styles.product_title}>{item?.title}</h1>
-                      <p className="price_section">
-                        <span className={Styles.price_in}>${item?.price}</span>
-                        <span className={Styles.ext_text}> + Free Shipping</span>
-                      </p>
-                      <p className={Styles.about_product}>
-                        Nam nec tellus a odio tincidunt auctor a ornare odio.
-                        Sed non mauris vitae erat consequat auctor eu in elit.
-                        Class aptent taciti sociosqu ad litora torquent per
-                        conubia nostra, per inceptos himenaeos. Mauris in erat
-                        justo. Nullam ac urna eu felis dapibus condimentum sit
-                        amet a augue. Sed non neque elit sed .
-                      </p>
-                      <div className={Styles.quantity_and_cart}>
-                        <span>
-                          <select 
-                            onChange={(e)=>setQunatity(e.target.value)}
-                          >
-                            <option value="none">none</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                          </select>
-                        </span>
-                        <span>
-                          <button onClick={()=>addproduct(item._id)}>add to cart</button>
-                        </span>
-                      </div>
-                      <hr />
-                      <div className={Styles.product_meta}>
-                        <span>
-                          Category:<a href="#">Women</a>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              );
-            })}
+                  </>
+                );
+              })}
           <div className={`${Styles.tab_section}`}>
             <div className="center_wr">
               <div className={Styles.tab}>

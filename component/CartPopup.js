@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const CartPopup = (props) => {
   const dispatch = useDispatch();
-  const { addItemCart , getitem } = useSelector(
+  const { getitem } = useSelector(
     (state) => state?.productSlice
   ); 
 

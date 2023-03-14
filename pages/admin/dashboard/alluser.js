@@ -13,7 +13,7 @@ import Styles from "../../../styles/Admin.module.css";
 const Allusers = () => {
   const dispatch = useDispatch();
 
-  const { allUsers, unBlock, updateRole, block, error } = useSelector(
+  const { allUsers, unBlock, updateRole, authLoading, block, error } = useSelector(
     (state) => {
       return {
         allUsers: state?.auth?.allUsers?.userList,
@@ -21,11 +21,11 @@ const Allusers = () => {
         block: state?.auth?.block?.success,
         updateRole: state?.auth?.updateRole?.success,
         error: state?.auth?.error,
+        authLoading : state?.auth?.authLoading
       };
     }
   );
 
-  console.log(123, updateRole);
   useEffect(() => {
     dispatch(allRegisterUser());
   }, [unBlock, block, error, updateRole]);

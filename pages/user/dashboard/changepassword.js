@@ -17,7 +17,6 @@ const ChangePassword = () => {
   const [passwordType, setPasswordType] = useState("password");
   const dispatch = useDispatch();
   const { userProfile , changePasswordStatus} = useSelector((state)=>state?.authUser)
-  console.log(22222222222,changePasswordStatus)
   const togglePassword = () => {
     if (passwordType === "password") {
       setPasswordType("text");
@@ -31,7 +30,7 @@ const ChangePassword = () => {
   };
 useEffect(()=>{
     setValue('email',userProfile?.[0]?.email)
-},[userProfile])
+},[userProfile , setValue])
 
 useEffect(()=>{
     if(changePasswordStatus?.success){

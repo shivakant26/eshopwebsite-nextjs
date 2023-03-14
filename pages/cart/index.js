@@ -1,18 +1,6 @@
-import { getCartProduct } from "@/Services/productSlice";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Styles from "../styles/Cart.module.css";
+import Styles from "../../styles/Cart.module.css";
 
 const Cart = () => {
-    // const dispatch = useDispatch();
-    // const { getitem } = useSelector(
-    //     (state) => state?.productSlice
-    //   );
-    // console.log(55555555555555,getitem)
-    
-    // useEffect(() => {
-    //     dispatch(getCartProduct());
-    //   }, []);
 
   return (
     <div className={Styles.cart_main_page}>

@@ -1,16 +1,11 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import { Autoplay } from "swiper";
-import "swiper/css/navigation";
 import Image from "next/image";
 import WorldWide from "./WorldWide";
 import SalesUpto from "./SalesUpto";
 import AllProduct from "./AllProduct";
+import ImageSlider from "./Common/ImageSlider";
+import ShopCards from "./ShopCards";
 
 const HomePage = () => {
-  let userToken =
-    typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
-
   return (
     <>
       <div className="banner_section">
@@ -30,128 +25,10 @@ const HomePage = () => {
       <div className="card_section">
         <div className="center_wr">
           <div className="icon_slider">
-            <Swiper
-              speed={500}
-              loop={true}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-              className="mySwiper"
-            >
-              <SwiperSlide>
-                <div className="image_slider">
-                  <Image
-                    src={require("../assets/images/client-logo-1.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-3.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-4.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-5.png")}
-                    alt="first_image"
-                  />
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="image_slider">
-                  <Image
-                    src={require("../assets/images/client-logo-1.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-3.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-4.png")}
-                    alt="first_image"
-                  />
-                  <Image
-                    src={require("../assets/images/client-logo-5.png")}
-                    alt="first_image"
-                  />
-                </div>
-              </SwiperSlide>
-            </Swiper>
+            <ImageSlider />
           </div>
           <div className="card_group_section">
-            <div className="card">
-              <div className="card_content">
-                <div className="card-image">
-                  <Image
-                    src={require("../assets/images/women-fashion-free-img.jpg")}
-                    alt="card_img"
-                  />
-                  <div className="card_body">
-                    <h4>20% Off On Tank Tops</h4>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Proin ac dictum.
-                    </p>
-                    <div className="shop_now">
-                      <a className="shop_not_btn" href="#">
-                        shop now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="overlay"></div>
-            </div>
-            <div className="card">
-              <div className="card_content">
-                <div className="card-image">
-                  <Image
-                    src={require("../assets/images/men-fashion-free-img.jpg")}
-                    alt="card_img"
-                  />
-                  <div className="card_body">
-                    <h4>Latest Eyewear For You</h4>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Proin ac dictum.
-                    </p>
-                    <div className="shop_now">
-                      <a className="shop_not_btn" href="#">
-                        shop now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="overlay"></div>
-            </div>
-            <div className="card">
-              <div className="card_content">
-                <div className="card-image">
-                  <Image
-                    src={require("../assets/images/footwear-free-img.jpg")}
-                    alt="card_img"
-                  />
-                  <div className="card_body">
-                    <h4>Let's Lorem Suit Up!</h4>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Proin ac dictum.
-                    </p>
-                    <div className="shop_now">
-                      <a className="shop_not_btn" href="#">
-                        shop now
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="overlay"></div>
-            </div>
+            <ShopCards />
           </div>
         </div>
       </div>
@@ -159,55 +36,6 @@ const HomePage = () => {
       <div className="feature_product">
         <div className="center_wr">
           <h2>Featured Products</h2>
-          {/* <div className="feature_product_list">
-            {
-              !loading ? (<>
-                {products?.length > 0 ? (
-                  <>
-                    {products?.map((item, index) => {
-                      return (
-                        <div className="feature_card" key={index}>
-                          <div
-                            className="feat_card_image"
-                            onClick={() => singleProduct(item?._id)}
-                          >
-                            <img src={item?.image} alt="item_image" />
-                            <div className="shop_icon">
-                              <i className="fa fa-shopping-bag"></i>
-                            </div>
-                          </div>
-                          <div className="feat_card_content">
-                            <h3>{item?.title}</h3>
-                            <span className="product_category">
-                              {item.description}
-                            </span>
-                            <span className="price">
-                              <del>
-                                <span className="product_price">$25.00</span>
-                              </del>
-                              <span className="orignal_price">${item?.price}</span>
-                            </span>
-                            <div className="star_rating">
-                              <i className="fa fa-star-o"></i>
-                              <i className="fa fa-star-o"></i>
-                              <i className="fa fa-star-o"></i>
-                              <i className="fa fa-star-o"></i>
-                              <i className="fa fa-star-o"></i>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </>
-                ) : (
-                  <>
-                    <p className="empty">No Product Available</p>
-                  </>
-                )}
-              </>) : <LoadingSpinner />
-            }
-            
-          </div> */}
           <AllProduct />
         </div>
       </div>

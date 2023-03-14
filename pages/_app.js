@@ -3,7 +3,6 @@ import UserLayout from "@/component/UserLayout";
 import store from "@/Services/store";
 import "@/styles/globals.css";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

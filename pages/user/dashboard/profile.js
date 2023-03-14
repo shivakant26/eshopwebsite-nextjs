@@ -28,7 +28,6 @@ const UserProfile = () => {
 
   const onSubmit = (data) => {
     let body = {updateId,data}
-    console.log(body)
     dispatch(updateUserProfile(body))
   };
 
