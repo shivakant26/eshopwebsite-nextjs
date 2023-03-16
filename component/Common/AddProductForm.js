@@ -1,12 +1,15 @@
+import { getSingleAdminAddedProduct, updateAdminAddedProduct } from "@/Services/Admin/adminProductSlice";
 import { addNewProduct } from "@/Services/productSlice";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import Styles from "../../../styles/Product.module.css";
+import Styles from "../../styles/Product.module.css";
 
-const AddProduct = () => {
+const AddProductForm = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const {
     register,
@@ -16,37 +19,73 @@ const AddProduct = () => {
     watch,
     formState: { errors },
   } = useForm();
+
   const [productImage, setProductImage] = useState("");
-  const {message , error , status} = useSelector((state) => state?.productSlice);
+  const [updatedId, setUpdatedId] = useState();
+  const { message, error, status } = useSelector(
+    (state) => state?.productSlice
+  );
+  const { singleProduct, updateProduct, authStatus } = useSelector(
+    (state) => state?.adminProduct
+  );
+
   const onSubmit = (data) => {
     let formData = new FormData();
     formData.append("title", data?.title);
     formData.append("price", data?.price);
     formData.append("description", data?.description);
     formData.append("image", data?.image[0]);
-    dispatch(addNewProduct(formData));
+    if (updatedId) {
+      dispatch(updateAdminAddedProduct({ data: formData, id: updatedId }));
+    } else {
+      dispatch(addNewProduct(formData));
+    }
     reset();
-    setProductImage({image:""})
+    setProductImage({ image: "" });0
   };
 
   useEffect(() => {
-    watch((value) => {   
-      setProductImage({image:URL?.createObjectURL(value?.image[0])});
+    watch((value) => {
+      if (value?.image?.length > 0) {
+        setProductImage({
+          image: window?.URL?.createObjectURL(value?.image?.[0]),
+        });
+      }
     });
   }, [watch]);
 
-  useEffect(()=>{
-    if(status === 'Success'){
-        toast.success(message)
-    }else if(error){
-        toast.error(error)
+  useEffect(() => {
+    if (status === "Success") {
+      toast.success(message);
+      router.push("/admin/dashboard/productlist");
+    } else if (error) {
+      toast.error(error);
+    } else if (updatedId !== undefined && authStatus === "success") {
+      toast.success(updateProduct);
+      setUpdatedId("");
+      router.push("/admin/dashboard/productlist");
     }
-  },[message ,error,status , productImage])
+  }, [error, status , router?.query?.id]);
+  console.log(status , authStatus);
+  useEffect(() => {
+    if (router?.query?.id) {
+      dispatch(getSingleAdminAddedProduct(router?.query?.id));
+      setUpdatedId(router?.query?.id);
+    }
+  }, [dispatch]);
 
+  useEffect(() => {
+    if (updatedId) {
+      setValue("title", singleProduct?.title);
+      setValue("price", singleProduct?.price);
+      setValue("description", singleProduct?.description);
+      setProductImage({ image: singleProduct?.image });
+    }
+  }, [singleProduct]);
   return (
     <>
       <div className={Styles.product_page_wr}>
-        <h3>Add Product</h3>
+        <h3>{router?.query?.id ? "Update Product" : "Add Product"}</h3>
         <form onSubmit={handleSubmit(onSubmit)}>
           <table>
             <tr>
@@ -66,7 +105,7 @@ const AddProduct = () => {
               </td>
               <td rowSpan={3}>
                 <div className={Styles.product_images}>
-                  {productImage !== '' ? (
+                  {productImage !== "" ? (
                     <>
                       <img
                         src={productImage?.image}
@@ -78,7 +117,8 @@ const AddProduct = () => {
                   ) : (
                     <>
                       <Image
-                        src={require("../../../assets/images/avatar.png")}
+                        src={require("../../assets/images/avatar.png")}
+                        alt="product_img"
                       />
                     </>
                   )}
@@ -135,7 +175,9 @@ const AddProduct = () => {
             </tr>
             <tr>
               <td>
-                <button type="submit" style={{width:"126px"}}>add product</button>
+                <button type="submit" style={{ width: "126px" }}>
+                  add product
+                </button>
               </td>
             </tr>
           </table>
@@ -145,4 +187,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddProductForm;

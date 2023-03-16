@@ -26,10 +26,10 @@ const CartPopup = (props) => {
             <i class="fa fa-close" onClick={props.hideFun}></i>
           </div>
         </div>
-        {getitem?.length > 0 ? (
+        {getitem?.items?.length > 0 ? (
           <>
             <div className="cart_body">
-              {getitem?.map((item) => {
+              {getitem?.items?.map((item) => {
                 return (
                   <>
                     <div className="cart_item_group">
@@ -65,7 +65,7 @@ const CartPopup = (props) => {
               })}
               <div className="sub_total">
                 <p>Subtotal : </p>
-                <p>$ 150.00</p>
+                <p>$ {getitem?.bill}.00</p>
               </div>
             </div>
             <div className="cart_footer">

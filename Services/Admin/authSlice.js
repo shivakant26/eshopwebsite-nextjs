@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import instance from "./apiConfig";
+import instance from "../apiConfig";
 
 const initialState = {
   authLoading : false,
@@ -9,8 +9,7 @@ const initialState = {
   unBlock: [],
   block: [],
   updateRole: [],
-  profileStatus:"",
-  status: "",
+  authStatus: "idle",
   error: "",
 };
 
@@ -73,6 +72,7 @@ export const UnVerifyUser = createAsyncThunk(
       });
       return response;
     } catch (error) {
+      
       return rejectWithValue(error?.response?.data);
     }
   }
@@ -115,73 +115,75 @@ export const updateProfile = createAsyncThunk(
     }
   }
 );
+
 const authSlice = createSlice({
   name: "authAdmin",
   initialState,
   extraReducers: (builder) => {
     builder
       .addCase(adminLogin.pending, (state) => {
-        state.authLoading = true
+        state.authLoading = true;
       })
       .addCase(adminLogin.fulfilled, (state, action) => {
-        state.authLoading = false
+        state.authLoading = false;
         state.isAdmin = action?.payload?.data?.success;
         localStorage.setItem("adminToken", action?.payload?.data?.token);
+        localStorage.setItem("adminId",action?.payload?.data?.Id)
       })
       .addCase(adminLogin.rejected, (state, err) => {
         state.authLoading = false
         state.error = err.payload.error;
       })
       .addCase(allRegisterUser.pending, (state) => {
-        state.status = "pending";
+        state.Status = "pending";
       })
       .addCase(allRegisterUser.fulfilled, (state, action) => {
-        state.status = "success";
+        state.Status = "success";
         state.allUsers = action?.payload?.data;
       })
       .addCase(allRegisterUser.rejected, (state, err) => {
-        state.status = "failed";
+        state.Status = "failed";
       })
       .addCase(getAdminProfile.pending, (state) => {
-        state.status = "pending";
+        state.Status = "pending";
         state.authLoading = true
       })
       .addCase(getAdminProfile.fulfilled, (state, action) => {
-        state.status = "success";
+        state.Status = "success";
         state.authLoading = false
         state.adminProfileData = action?.payload?.data;
       })
       .addCase(getAdminProfile.rejected, (state, err) => {
-        state.status = "failed";
+        state.Status = "failed";
         state.authLoading = false
       })
       .addCase(verifyUser.pending, (state) => {
-        state.status = "pending";
+        state.Status = "pending";
         state.error = "";
         state.unBlock = "";
       })
       .addCase(verifyUser.fulfilled, (state, action) => {
-        state.status = "success";
+        state.Status = "success";
         state.unBlock = action?.payload?.data;
         state.error = "";
       })
       .addCase(verifyUser.rejected, (state, err) => {
-        state.status = "failed";
+        state.Status = "failed";
         state.error = err.payload.message;
         state.unBlock = "";
       })
       .addCase(UnVerifyUser.pending, (state) => {
-        state.status = "pending";
+        state.Status = "pending";
         state.error = "";
         state.block = "";
       })
       .addCase(UnVerifyUser.fulfilled, (state, action) => {
-        state.status = "success";
+        state.Status = "success";
         state.block = action?.payload?.data;
         state.error = "";
       })
       .addCase(UnVerifyUser.rejected, (state, err) => {
-        state.status = "failed";
+        state.Status = "failed";
         state.error = err.payload.message;
         state.block = "";
       })

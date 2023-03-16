@@ -38,6 +38,12 @@ const Sidebar = () => {
               </li>
               <li>
                 <span>
+                <i class="fa fa-list"></i>
+                </span>
+                <Link href="/admin/dashboard/productlist">Product List</Link>
+              </li>
+              <li>
+                <span>
                   <i className="fa fa-cog"></i>
                 </span>
                 <Link href="/admin/dashboard/setting">setting</Link>

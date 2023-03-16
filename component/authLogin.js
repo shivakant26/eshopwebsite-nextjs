@@ -1,4 +1,4 @@
-import { adminLogin } from "@/Services/authSlice";
+import { adminLogin } from "@/Services/Admin/authSlice";
 import { loginUser } from "@/Services/authUserSlice";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Toast from "./Common/Toast";
 import LoadingSpinner from "./Loder";
 
 const AuthLogin = () => {

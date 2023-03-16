@@ -17,6 +17,8 @@ export const appRoute = {
     ADMINPROFILE : "/admin/dashboard/profile",
     ADMINSETTING : "/admin/dashboard/setting",
     ADDPRODUCT : "/admin/dashboard/addproduct",
+    UPDATEPRODUCT : "/admin/dashboard/addproduct/[id]",
+    PRODUCTLIST : "/admin/dashboard/productlist",
     USERDASHBOARD : "/user/dashboard",
     USERPROFILE : "/user/dashboard/profile",
     USERCHANGEPASSWORD : "/user/dashboard/changepassword",

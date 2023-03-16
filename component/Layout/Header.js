@@ -1,4 +1,4 @@
-import { allRegisterUser } from "@/Services/authSlice";
+import { allRegisterUser } from "@/Services/Admin/authSlice";
 import { getUserProfile } from "@/Services/authUserSlice";
 import { getCartProduct } from "@/Services/productSlice";
 import Link from "next/link";
@@ -21,13 +21,14 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { userProfile }  = useSelector((state) => state?.authUser);
-  const { addItemCart , getitem } = useSelector((state)=>state?.productSlice);
+  const { getitem } = useSelector((state)=>state?.productSlice);
 
   useEffect(() => {
     dispatch(getCartProduct());
     dispatch(getUserProfile())
-  }, [getitem]);
+  }, [getitem , dispatch]);
 
+  // console.log(200000000,getitem.items.length)
   const showDrop = () => {
     setDropdown(!dropdown);
   };
@@ -85,8 +86,8 @@ const Header = () => {
                 <Link href="#">
                   <i className="fa fa-shopping-cart"></i>
                   {
-                    getitem?.length > 0 ? (<>
-                  <span className="cart_items">{getitem?.length}</span>
+                    getitem?.items?.length > 0 ? (<>
+                  <span className="cart_items">{getitem?.items?.length}</span>
                     </>) : ""
                   }
                 </Link>

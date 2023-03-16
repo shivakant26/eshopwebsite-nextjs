@@ -1,6 +1,18 @@
+import { getCartProduct } from "@/Services/productSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../styles/Cart.module.css";
+import ProductImage from "../../assets/images/productdummy.png";
+import Image from "next/image";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const { getitem } = useSelector((state) => state?.productSlice);
+  console.log(321, getitem);
+
+  useEffect(() => {
+    dispatch(getCartProduct());
+  }, []);
 
   return (
     <div className={Styles.cart_main_page}>
@@ -12,7 +24,7 @@ const Cart = () => {
           <table>
             <thead>
               <tr>
-                <th>id</th>
+                <th></th>
                 <th>image</th>
                 <th>Product</th>
                 <th>Price</th>
@@ -21,14 +33,18 @@ const Cart = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>x</td>
-                <td>photo</td>
-                <td>Anchor Brecelet</td>
-                <td>$ 150.00</td>
-                <td>1</td>
-                <td>$ 150.00</td>
-              </tr>
+              {getitem?.items?.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td><i class="fa fa-close"></i></td>
+                    <td><Image src={ProductImage} alt="product_dummy" /></td>
+                    <td>{item?.title}</td>
+                    <td>$ {item?.price}.00</td>
+                    <td>{item?.quantity}</td>
+                    <td>$ {item?.price * (item?.quantity)}.00</td>
+                  </tr>
+                );
+              })}
               <tr>
                 <td colSpan={6}>
                   <div className={Styles.coupon_section}>
@@ -58,11 +74,11 @@ const Cart = () => {
               <tbody>
                 <tr>
                   <th>Subtotal</th>
-                  <td>$150.00</td>
+                  <td>${getitem?.bill}.00</td>
                 </tr>
                 <tr>
-                  <th>Subtotal</th>
-                  <td>$150.00</td>
+                  <th>Total</th>
+                  <td>${getitem?.bill}.00</td>
                 </tr>
               </tbody>
             </table>

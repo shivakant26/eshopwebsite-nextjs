@@ -83,6 +83,7 @@ const SingleProduct = () => {
     let object = { itemId, quantity };
     dispatch(addToCart(object));
   };
+  
   return (
     <>
       <div className={Styles.single_product_section}>

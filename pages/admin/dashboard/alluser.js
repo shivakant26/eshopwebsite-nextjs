@@ -4,7 +4,7 @@ import {
   roleAsUser,
   UnVerifyUser,
   verifyUser,
-} from "@/Services/authSlice";
+} from "@/Services/Admin/authSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";

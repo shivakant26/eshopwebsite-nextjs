@@ -1,4 +1,5 @@
-import { getAdminProfile, updateProfile } from "@/Services/authSlice";
+import DotLoder from "@/component/Common/DotLoder";
+import { getAdminProfile, updateProfile } from "@/Services/Admin/authSlice";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -84,7 +85,7 @@ const Profile = () => {
                   </div>
                 </>
               ) : (
-                <>{adminProfileData?.[0]?.email}</>
+                <>{authLoading === true ? (<><DotLoder /></>) : adminProfileData?.[0]?.email}</>
               )}
             </td>
             <td rowSpan={3}>
@@ -113,7 +114,7 @@ const Profile = () => {
                   </div>
                 </>
               ) : (
-                <>{adminProfileData?.[0].firstName}</>
+                <>{authLoading === true ? (<><DotLoder /></>) : adminProfileData?.[0].firstName}</>
               )}
             </td>
           </tr>

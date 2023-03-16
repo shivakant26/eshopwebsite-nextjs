@@ -68,6 +68,9 @@
     padding: 20px;
 }
 /* Admin Profile */
+.admin_add_product{
+    margin-top: 20px;
+}
 .admin_profile{
     padding: 20px;
 }
@@ -83,4 +86,54 @@
 .admin_profile table tr td{
     border:1px solid #e6e2e2;
     padding: 16px 20px;
+}
+
+/* admin Added Product */
+.item_card{
+    display: inline-block;
+    width: 22%;
+    box-shadow: 4px 4px 12px rgba(0,0,0,0.8);
+    margin: 8px;
+    transition: .4s;
+    padding: 20px 0px;
+}
+.item_card:hover{
+    transform: translateX(5px);
+    box-shadow: 4px 4px 12px rgba(144, 38, 206, 0.8);
+}
+.item_card_header{
+    height: 100px;
+    position: relative;
+}
+.item_card_header img{
+    width: 100%;
+    object-fit: contain;
+    height: 100px;
+}
+.item_card_body{
+    padding: 10px;
+}
+.item_card_body h3{
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+.item_card_footer{
+    text-align: center;
+    padding: 20px;
+}
+.item_card_footer button{
+    padding: 7px 18px;
+    background: #006a8b;
+    border: none;
+    transition: .4s;
+    color: #fff;
+    border-top-right-radius: 5px;
+}
+.item_card_footer button:hover{
+    background-color: #000;
+}
+.prizes{
+    position: absolute;
+    top: -13px;
+    left: 9px;
 }

@@ -116,7 +116,7 @@ const productSlice = createSlice({
         .addCase(getCartProduct.fulfilled,(state,action)=>{
             state.status = "success";
             state.error = ""
-            state.getitem = action.payload?.data?.items;
+            state.getitem = action.payload?.data;
         })
         .addCase(getCartProduct.rejected,(state,err)=>{
             state.status = "failed";

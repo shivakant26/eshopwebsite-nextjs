@@ -38,7 +38,9 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.ALLUSER,
         appRoute.ADMINPROFILE,
         appRoute.ADMINSETTING,
-        appRoute.ADDPRODUCT
+        appRoute.ADDPRODUCT,
+        appRoute.PRODUCTLIST,
+        appRoute.UPDATEPRODUCT
     ]
     
     const pathIsUnProtected = unProtected.indexOf(path.pathname) === -1;

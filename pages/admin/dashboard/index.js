@@ -1,5 +1,5 @@
 import Charts from "@/component/Charts";
-import { allRegisterUser } from "@/Services/authSlice";
+import { allRegisterUser } from "@/Services/Admin/authSlice";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../../styles/Admin.module.css";

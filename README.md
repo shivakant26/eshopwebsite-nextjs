@@ -19,7 +19,7 @@
     (5.4) add quntity and many more action
 6. Dynamic Token saving such as user and admin
 7. Make range slider for min and max    
-    
+8. Make loder and apply   
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

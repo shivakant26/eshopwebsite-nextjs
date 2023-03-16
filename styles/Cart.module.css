@@ -62,4 +62,8 @@
     padding: 12px 0px;
     text-transform: uppercase;
 }
+.cart_table table td img{
+    height: 60px !important;
+    width: 86px !important;
+}
 
