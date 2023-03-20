@@ -21,8 +21,7 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.REGISTER,
         appRoute.EVERYTHINGS,
         appRoute.MEN,
-        appRoute.ACCESSORIES
-        // appRoute.CART
+        appRoute.ACCESSORIES,
     ]
     const isUserProtected = [
         appRoute.HOME,
@@ -31,7 +30,8 @@ const ProtectedRoutes = ({ children }) => {
         appRoute.USERPROFILE,
         appRoute.USERLOGOUT,
         appRoute.USERCHANGEPASSWORD,
-        appRoute.CART
+        appRoute.CART,
+        appRoute.CHECKOUT
     ]
     const isAdminProtected = [
         appRoute.ADMINDASHBOARD,

@@ -7,12 +7,14 @@
 .user_profile table{
     border-collapse: collapse;
     width: 100%;
+    border-radius: 5px;
 }
 .user_profile table tr th{
-    border: 1px solid gray;
+    border: 1px solid #e5dbdb;
 }
 .user_profile table tr td{
-    border: 1px solid gray;
+    border: 1px solid #e5dbdb;
+    padding: 15px 25px;
 }
 .success{
     color: green;

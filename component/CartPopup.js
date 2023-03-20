@@ -1,11 +1,11 @@
 import { deleteCartItem, getCartProduct } from "@/Services/productSlice";
 import Image from "next/image";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CartPopup = (props) => {
   const dispatch = useDispatch();
-  const { getitem } = useSelector(
+  const { getitem,deleteCart } = useSelector(
     (state) => state?.productSlice
   ); 
 
@@ -14,8 +14,9 @@ const CartPopup = (props) => {
   };
 
   useEffect(() => {
-    dispatch(getCartProduct());
-  }, [getitem]);
+      dispatch(getCartProduct());
+    
+  }, [deleteCart]);
 
   return (
     <>
@@ -31,8 +32,7 @@ const CartPopup = (props) => {
             <div className="cart_body">
               {getitem?.items?.map((item) => {
                 return (
-                  <>
-                    <div className="cart_item_group">
+                    <div className="cart_item_group" key={item._id}>
                       <div className="add_cart_left">
                         <div className="cart_pro_image">
                           <Image src={require("../assets/images/avatar.png")} />
@@ -60,7 +60,6 @@ const CartPopup = (props) => {
                         </button>
                       </div>
                     </div>
-                  </>
                 );
               })}
               <div className="sub_total">
@@ -85,4 +84,4 @@ const CartPopup = (props) => {
   );
 };
 
-export default CartPopup;
+export default React.memo(CartPopup);

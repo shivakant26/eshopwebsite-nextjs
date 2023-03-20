@@ -96,6 +96,7 @@
     margin: 8px;
     transition: .4s;
     padding: 20px 0px;
+    border-radius: 5px;
 }
 .item_card:hover{
     transform: translateX(5px);

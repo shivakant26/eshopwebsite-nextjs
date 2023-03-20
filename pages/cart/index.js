@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import Styles from "../../styles/Cart.module.css";
 import ProductImage from "../../assets/images/productdummy.png";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const { getitem } = useSelector((state) => state?.productSlice);
   console.log(321, getitem);
 
@@ -14,6 +16,9 @@ const Cart = () => {
     dispatch(getCartProduct());
   }, []);
 
+  const checkout = ()=>{
+    router.push("/checkout");
+  }
   return (
     <div className={Styles.cart_main_page}>
       <div className="center_wr">
@@ -83,7 +88,7 @@ const Cart = () => {
               </tbody>
             </table>
             <div className={Styles.table_bottom}>
-              <button style={{ width: "180px" }}>checkout</button>
+              <button style={{ width: "180px" }} onClick={checkout}>checkout</button>
             </div>
           </div>
         </div>

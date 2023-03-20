@@ -21,14 +21,27 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { userProfile }  = useSelector((state) => state?.authUser);
-  const { getitem } = useSelector((state)=>state?.productSlice);
+  const { addItemCart,deleteCart , getitem } = useSelector((state)=>state?.productSlice);
+
+  useEffect(() => {
+    dispatch(getUserProfile())
+  }, []);
+  
 
   useEffect(() => {
     dispatch(getCartProduct());
-    dispatch(getUserProfile())
-  }, [getitem , dispatch]);
+  }, [addItemCart]);
 
-  // console.log(200000000,getitem.items.length)
+  console.log(74844,getitem)
+
+  useEffect(() => {
+    if (show !== true) {
+      document.body.style.backgroundColor = "";
+    } else {
+      document.body.style.backgroundColor = "gray";
+    }
+  }, [show]);
+ 
   const showDrop = () => {
     setDropdown(!dropdown);
   };
@@ -40,11 +53,6 @@ const Header = () => {
 
   const handleShow = () => {
     setShow(true);
-    if (show === true) {
-      document.body.style.backgroundColor = "";
-    } else {
-      document.body.style.backgroundColor = "gray";
-    }
   };
 
   return (
@@ -86,9 +94,9 @@ const Header = () => {
                 <Link href="#">
                   <i className="fa fa-shopping-cart"></i>
                   {
-                    getitem?.items?.length > 0 ? (<>
-                  <span className="cart_items">{getitem?.items?.length}</span>
-                    </>) : ""
+                    <>
+                  <span className="cart_items">{getitem?.items?.length ? getitem?.items?.length : 0}</span>
+                    </>
                   }
                 </Link>
               </li>

@@ -31,6 +31,7 @@ export const addToCart = createAsyncThunk(
     async(object,{rejectWithValue})=>{
     try{
        const response =  await instance.post("/cart",object)
+
        return response;
     }
     catch(error){

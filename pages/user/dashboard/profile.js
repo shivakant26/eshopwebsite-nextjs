@@ -1,5 +1,6 @@
+import DotLoder from "@/component/Common/DotLoder";
 import { getUserProfile, updateUserProfile } from "@/Services/authUserSlice";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -16,8 +17,8 @@ const UserProfile = () => {
   } = useForm();
   const [updateId, setUpdateId] = useState("");
   const dispatch = useDispatch();
-  const { userProfile ,updateProfile } = useSelector((state) => state?.authUser);
-
+  const { userProfile ,updateProfile , loading } = useSelector((state) => state?.authUser);
+  console.log(loading);
   useEffect(()=>{
     dispatch(getUserProfile())
   },[updateId, updateProfile])
@@ -71,7 +72,7 @@ const UserProfile = () => {
                     </div>
                   </>
                 ) : (
-                  <>{userProfile?.[0]?.firstName}</>
+                  <>{loading === true ? (<><DotLoder /></>):userProfile?.[0]?.firstName}</>
                 )}
               </td>
             </tr>
@@ -98,7 +99,7 @@ const UserProfile = () => {
                     </div>
                   </>
                 ) : (
-                  <>{userProfile?.[0]?.email}</>
+                  <>{loading === true ? (<><DotLoder /></>) : userProfile?.[0]?.email}</>
                 )}
               </td>
             </tr>
@@ -139,4 +140,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default React.memo(UserProfile);

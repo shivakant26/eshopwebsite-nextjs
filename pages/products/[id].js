@@ -19,7 +19,7 @@ const SingleProduct = () => {
   const id = router?.query?.id;
   const [quantity, setQunatity] = useState();
   const dispatch = useDispatch();
-  const { products, error, authError } = useSelector((state) => {
+  const { products, error, loading, authError } = useSelector((state) => {
     return {
       products: state?.productSlice?.products,
       error: state?.productSlice?.error,
@@ -134,8 +134,6 @@ const SingleProduct = () => {
                             >
                               <option value="none">none</option>
                               <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
                             </select>
                           </span>
                           <span>

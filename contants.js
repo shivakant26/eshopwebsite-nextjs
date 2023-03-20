@@ -7,6 +7,7 @@ export const appRoute = {
     ADMIN : "/admin",
     USER : "/user",
     CART : "/cart",
+    CHECKOUT : "/checkout",
     EVERYTHINGS : "/everythings",
     MEN : "/men",
     ACCESSORIES : "/accessories",
