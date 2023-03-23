@@ -70,6 +70,12 @@
     justify-content: space-between;
     padding: 10px 0px;
 }
+.product_category ul li a{
+    transition: .4s;
+}
+.product_category ul li a:hover{
+    color: #006a8b;
+}
 .breadcamb{
     padding: 0px 73px;
 }

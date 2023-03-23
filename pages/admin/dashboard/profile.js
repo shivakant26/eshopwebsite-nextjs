@@ -19,16 +19,17 @@ const Profile = () => {
   } = useForm();
 
   const [updateId, setUpdateId] = useState("");
-  const { adminProfileData, authLoading, profileStatus } = useSelector(
+  const { adminProfileData, authLoading, profileStatus , authStatus } = useSelector(
     (state) => {
       return {
         adminProfileData: state?.auth?.adminProfileData?.Admin,
         profileStatus: state?.auth?.profileStatus,
         authLoading: state?.auth?.authLoading,
+        authStatus : state?.auth?.authStatus
       };
     }
   );
-
+ console.log(authStatus)
   useEffect(() => {
     dispatch(getAdminProfile());
   }, [updateId, profileStatus, dispatch]);
@@ -50,9 +51,8 @@ const Profile = () => {
   }, [updateId, setValue, adminProfileData]);
 
   useEffect(() => {
-    if (profileStatus !== "") {
+    if (profileStatus !== "" && authStatus === "success") {
       setUpdateId("");
-      toast.success("update successful");
     } else {
     }
   }, [profileStatus]);

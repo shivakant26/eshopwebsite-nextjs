@@ -1,9 +1,12 @@
 import { deleteCartItem, getCartProduct } from "@/Services/productSlice";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CartPopup = (props) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { getitem,deleteCart } = useSelector(
     (state) => state?.productSlice
@@ -18,6 +21,10 @@ const CartPopup = (props) => {
     
   }, [deleteCart]);
 
+  const viewCart = () =>{
+    router.push("/cart")
+    props.hideFun();
+  }
   return (
     <>
       <div className="cart_popup">
@@ -69,7 +76,7 @@ const CartPopup = (props) => {
             </div>
             <div className="cart_footer">
               <div className="view_cart_btn">
-              <a href="/cart">view cart</a>
+              <button onClick={viewCart}>view cart</button>
               </div>
               <div className="checkout_cart_btn">
               <a href="#">Checkout</a>

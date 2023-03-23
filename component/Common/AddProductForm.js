@@ -1,5 +1,4 @@
-import { getSingleAdminAddedProduct, updateAdminAddedProduct } from "@/Services/Admin/adminProductSlice";
-import { addNewProduct } from "@/Services/productSlice";
+import { addNewProduct, getSingleAdminAddedProduct, updateAdminAddedProduct } from "@/Services/Admin/adminProductSlice";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -22,13 +21,11 @@ const AddProductForm = () => {
 
   const [productImage, setProductImage] = useState("");
   const [updatedId, setUpdatedId] = useState();
-  const { message, error, status } = useSelector(
-    (state) => state?.productSlice
-  );
-  const { singleProduct, updateProduct, authStatus } = useSelector(
+  const { singleProduct, updateProduct, productStatus , message, error, } = useSelector(
     (state) => state?.adminProduct
   );
 
+  console.log(321321321,productStatus)
   const onSubmit = (data) => {
     let formData = new FormData();
     formData.append("title", data?.title);
@@ -55,18 +52,18 @@ const AddProductForm = () => {
   }, [watch]);
 
   useEffect(() => {
-    if (status === "Success") {
+    if (productStatus === "success") {
       toast.success(message);
       router.push("/admin/dashboard/productlist");
     } else if (error) {
       toast.error(error);
-    } else if (updatedId !== undefined && authStatus === "success") {
+    } else if (updatedId !== undefined && productStatus === "success") {
       toast.success(updateProduct);
       setUpdatedId("");
       router.push("/admin/dashboard/productlist");
     }
-  }, [error, status , router?.query?.id]);
-  console.log(status , authStatus);
+  }, [error, productStatus , router?.query?.id]);
+
   useEffect(() => {
     if (router?.query?.id) {
       dispatch(getSingleAdminAddedProduct(router?.query?.id));
@@ -82,6 +79,7 @@ const AddProductForm = () => {
       setProductImage({ image: singleProduct?.image });
     }
   }, [singleProduct]);
+
   return (
     <>
       <div className={Styles.product_page_wr}>

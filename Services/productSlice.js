@@ -51,19 +51,7 @@ export const getCartProduct = createAsyncThunk(
     }    
 })
 
-export const addNewProduct = createAsyncThunk(
-    "product/addNewProduct",
-    async(body,{rejectWithValue})=>{
-    try{
-       const response =  await instance.post("/post",body)
-       if(response.status === 200){
-           return response;
-       }
-    }
-    catch(error){
-        return rejectWithValue(error.response.data)
-    }    
-})
+
 
 export const deleteCartItem = createAsyncThunk(
     "product/deleteCartItem",
@@ -134,23 +122,7 @@ const productSlice = createSlice({
         .addCase(deleteCartItem.rejected,(state,err)=>{
             state.loading = false;
             state.error = err.payload.message;
-        })
-        .addCase(addNewProduct.pending,(state)=>{
-            state.loading = true;
-            state.message = ""
-            state.error = ""
-        })
-        .addCase(addNewProduct.fulfilled,(state,action)=>{
-            state.loading = false;
-            state.error = ""
-            state.addItemProduct = action.payload.data;
-            state.message = action.payload.data.message;
-            state.status = action.payload.data.status
-        })
-        .addCase(addNewProduct.rejected,(state,err)=>{
-            state.loading = false;
-            state.error = err.payload.error;
-        })
+        });
     }
 })
 

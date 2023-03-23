@@ -17,19 +17,21 @@ const UserProfile = () => {
   } = useForm();
   const [updateId, setUpdateId] = useState("");
   const dispatch = useDispatch();
-  const { userProfile ,updateProfile , loading } = useSelector((state) => state?.authUser);
-  console.log(loading);
-  useEffect(()=>{
-    dispatch(getUserProfile())
-  },[updateId, updateProfile])
+  const { userProfile, updateProfile, loading, status } = useSelector(
+    (state) => state?.authUser
+  );
+
+  useEffect(() => {
+    dispatch(getUserProfile());
+  }, [updateProfile]);
 
   const modify = (id) => {
     setUpdateId(id);
   };
 
   const onSubmit = (data) => {
-    let body = {updateId,data}
-    dispatch(updateUserProfile(body))
+    let body = { updateId, data };
+    dispatch(updateUserProfile(body));
   };
 
   useEffect(() => {
@@ -39,13 +41,13 @@ const UserProfile = () => {
     }
   }, [updateId]);
 
-  useEffect(()=>{
-    if(updateProfile !== "" && updateProfile?.length > 0){
+  useEffect(() => {
+    if (status === "success" && updateProfile?.length > 0) {
       setUpdateId("");
       toast.success("update successful");
-    }else{
+    } else {
     }
-  },[updateProfile])
+  }, [updateProfile]);
 
   return (
     <>
@@ -72,7 +74,15 @@ const UserProfile = () => {
                     </div>
                   </>
                 ) : (
-                  <>{loading === true ? (<><DotLoder /></>):userProfile?.[0]?.firstName}</>
+                  <>
+                    {loading === true ? (
+                      <>
+                        <DotLoder />
+                      </>
+                    ) : (
+                      userProfile?.[0]?.firstName
+                    )}
+                  </>
                 )}
               </td>
             </tr>
@@ -99,7 +109,15 @@ const UserProfile = () => {
                     </div>
                   </>
                 ) : (
-                  <>{loading === true ? (<><DotLoder /></>) : userProfile?.[0]?.email}</>
+                  <>
+                    {loading === true ? (
+                      <>
+                        <DotLoder />
+                      </>
+                    ) : (
+                      userProfile?.[0]?.email
+                    )}
+                  </>
                 )}
               </td>
             </tr>
@@ -120,8 +138,10 @@ const UserProfile = () => {
                   <>
                     <input
                       type="submit"
-                      className="update_btn"
-                      value="Update"
+                      className={
+                        authLoading === true ? "update_btn loading" : "update_btn"
+                      }
+                      value={authLoading === true ? "Loading..." : "Update"}
                     />
                   </>
                 ) : (

@@ -94,6 +94,9 @@ h2{
   top: 0;
   z-index: 19;
 }
+.active{
+  color: yellow !important;
+}
 .e_shop_header{
   display: flex;
   padding: 17px 0px;
@@ -775,7 +778,7 @@ table tr td button:hover{
 .cart_footer{
   padding: 20px;
 }
-.view_cart_btn a , .checkout_cart_btn a{
+.view_cart_btn button , .checkout_cart_btn a{
   width: 100%;
     padding: 10px;
     background: #fff;
@@ -787,7 +790,7 @@ table tr td button:hover{
     text-align: center;
     text-transform: uppercase;
 }
-.view_cart_btn a:hover{
+.view_cart_btn button:hover{
   background-color: #00698d;
   color: #fff;
 }
@@ -974,9 +977,19 @@ flex-basis: 60%;
   outline: none;
   border:none;
   transition: .4s;
+  text-transform: uppercase;
 }
 .place_order_btn:hover{
   background-color: #000;
   position: relative;
   transform: translateX(10px);
+}
+.tabber{
+  display: none;
+  background: antiquewhite;
+  padding: 15px;
+  font-size: 13px;
+}
+.denger{
+  color: red;
 }

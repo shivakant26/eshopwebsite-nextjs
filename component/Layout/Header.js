@@ -2,12 +2,15 @@ import { allRegisterUser } from "@/Services/Admin/authSlice";
 import { getUserProfile } from "@/Services/authUserSlice";
 import { getCartProduct } from "@/Services/productSlice";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import CartPopup from "../CartPopup";
 
 const Header = () => {
+  const router = useRouter();
+  console.log(123, router.pathname);
   const [dropdown, setDropdown] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -20,19 +23,20 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
-  const { userProfile }  = useSelector((state) => state?.authUser);
-  const { addItemCart,deleteCart , getitem } = useSelector((state)=>state?.productSlice);
+  const { userProfile } = useSelector((state) => state?.authUser);
+  const { addItemCart, deleteCart, getitem } = useSelector(
+    (state) => state?.productSlice
+  );
 
   useEffect(() => {
-    dispatch(getUserProfile())
+    dispatch(getUserProfile());
   }, []);
-  
 
   useEffect(() => {
     dispatch(getCartProduct());
   }, [addItemCart]);
 
-  console.log(74844,getitem)
+  console.log(74844, getitem);
 
   useEffect(() => {
     if (show !== true) {
@@ -41,7 +45,7 @@ const Header = () => {
       document.body.style.backgroundColor = "gray";
     }
   }, [show]);
- 
+
   const showDrop = () => {
     setDropdown(!dropdown);
   };
@@ -68,16 +72,40 @@ const Header = () => {
             <div className="left_menu">
               <ul style={{ position: "relative" }}>
                 <li>
-                  <Link href="/everythings">Everything</Link>
+                  <Link
+                    href="/everythings"
+                    className={
+                      router.pathname === "/everythings" ? "active" : ""
+                    }
+                  >
+                    Everything
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/women">women</Link>
+                  <Link
+                    href="/women"
+                    className={router.pathname === "/women" ? "active" : ""}
+                  >
+                    women
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/men">men</Link>
+                  <Link
+                    href="/men"
+                    className={router.pathname === "/men" ? "active" : ""}
+                  >
+                    men
+                  </Link>
                 </li>
                 <li>
-                  <Link href="/accessories">Accessories</Link>
+                  <Link
+                    href="/accessories"
+                    className={
+                      router.pathname === "/accessories" ? "active" : ""
+                    }
+                  >
+                    Accessories
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -85,17 +113,29 @@ const Header = () => {
           <div className="right_header_content">
             <ul>
               <li>
-                <Link href="/about">about</Link>
+                <Link
+                  href="/about"
+                  className={router.pathname === "/about" ? "active" : ""}
+                >
+                  about
+                </Link>
               </li>
               <li>
-                <Link href="/contactus">Contact Us</Link>
+                <Link
+                  href="/contactus"
+                  className={router.pathname === "/contactus" ? "active" : ""}
+                >
+                  Contact Us
+                </Link>
               </li>
               <li onClick={handleShow}>
                 <Link href="#">
                   <i className="fa fa-shopping-cart"></i>
                   {
                     <>
-                  <span className="cart_items">{getitem?.items?.length ? getitem?.items?.length : 0}</span>
+                      <span className="cart_items">
+                        {getitem?.items?.length ? getitem?.items?.length : 0}
+                      </span>
                     </>
                   }
                 </Link>
@@ -131,19 +171,22 @@ const Header = () => {
                     )}
                   </li>
                 </>
-              )
-               : userToken ? (
+              ) : userToken ? (
                 <>
                   <li className="drop_down" onClick={showDrop}>
                     <Link href="">
                       <span className="current_user">
-                        {userProfile?.[0]?.email?.charAt(0) ? userProfile?.[0]?.email?.charAt(0) : <i class="fa fa-bars"></i>}
+                        {userProfile?.[0]?.email?.charAt(0) ? (
+                          userProfile?.[0]?.email?.charAt(0)
+                        ) : (
+                          <i class="fa fa-bars"></i>
+                        )}
                       </span>
                     </Link>
                     {dropdown ? (
                       <>
                         <ul>
-                        <li>
+                          <li>
                             <Link href="/user/dashboard">Dashboard</Link>
                           </li>
                           <li>
@@ -156,8 +199,7 @@ const Header = () => {
                     )}
                   </li>
                 </>
-              )
-               : null}
+              ) : null}
             </ul>
           </div>
         </div>

@@ -12,12 +12,7 @@ const initialState = {
     status:"",
     error : ""
 };
-// var userToken =
-//   typeof window !== "undefined" ? localStorage.getItem("userToken") : null;
 
-//   const config = {
-//     headers: { Authorization: `Bearer ${userToken}` }
-// };
 export const addNewUser = createAsyncThunk(
     "authUser/addNewUser",
     async(data,{rejectWithValue})=>{
@@ -103,15 +98,18 @@ const authUserSlice = createSlice({
             state.error = err.payload.error;
         })
         .addCase(loginUser.pending,(state)=>{
+            state.status = "pending";
             state.loading = true;
         })
         .addCase(loginUser.fulfilled,(state,action)=>{
+            state.status = "success";
             state.loading = false;
             state.loginData = action?.payload?.data;
             localStorage.setItem("userToken",action?.payload?.data?.token)
             localStorage.setItem("userId",action?.payload?.data?.Id)
         })
         .addCase(loginUser.rejected,(state,err)=>{
+            state.status = "failed";
             state.loading = false;
             state.userError = err?.payload?.error;
         })
@@ -124,27 +122,32 @@ const authUserSlice = createSlice({
         })
         .addCase(getUserProfile.rejected,(state,err)=>{
             state.loading = false;
-            // state.error = err.payload.error;
         })
         .addCase(updateUserProfile.pending,(state)=>{
+            state.status = "pending";
             state.loading = true;
         })
         .addCase(updateUserProfile.fulfilled,(state,action)=>{
+            state.status = "success";
             state.loading = false;
             state.updateProfile = action.payload.data;
         })
         .addCase(updateUserProfile.rejected,(state,err)=>{
+            state.status = "failed";
             state.loading = false;
             state.error = err.payload.error;
         })
         .addCase(changeUserPassword.pending,(state)=>{
+            state.status = "pending";
             state.loading = true;
         })
         .addCase(changeUserPassword.fulfilled,(state,action)=>{
+            state.status = "success";
             state.loading = false;
             state.changePasswordStatus = action.payload.data;
         })
         .addCase(changeUserPassword.rejected,(state,err)=>{
+            state.status = "failed";
             state.loading = false;
             state.error = err.payload.error;
         })

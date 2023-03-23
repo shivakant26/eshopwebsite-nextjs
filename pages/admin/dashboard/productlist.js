@@ -1,23 +1,38 @@
 
-import { getAdminAddedProduct } from "@/Services/Admin/adminProductSlice";
+import { getAdminAddedProduct, removeProducts } from "@/Services/Admin/adminProductSlice";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import Styles from "../../../styles/Admin.module.css";
 
 const ProductList = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { getAdminProduct } = useSelector((state) => state?.adminProduct);
+  const { getAdminProduct , productStatus , message} = useSelector((state) => state?.adminProduct);
   useEffect(() => {
     dispatch(getAdminAddedProduct());
-  }, [dispatch]);
+  }, [dispatch , message]);
 
   const updateProduct = (id) =>{
-    console.log(id)
     router.push(`/admin/dashboard/addproduct/${id}`)
   }
+
+  const removeProduct = (id) =>{
+    var del = confirm("are you sure?")
+    if(del){
+      dispatch(removeProducts(id))
+    }else{
+      return false;
+    }
+  }
+
+  useEffect(()=>{
+    if(productStatus === "success"){
+      toast.success(message)
+    }
+  },[message])
 
   return (
     <>
@@ -41,6 +56,7 @@ const ProductList = () => {
                 </div>
                 <div className={Styles.item_card_footer}>
                     <button onClick={()=>updateProduct(product._id)}>update</button>
+                    <button onClick={()=>removeProduct(product._id)}>Delete</button>
                 </div>
               </div>
             );
